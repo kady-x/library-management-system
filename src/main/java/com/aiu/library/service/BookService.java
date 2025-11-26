@@ -15,13 +15,15 @@ public class BookService {
     }
 
     public void addBook(Book book) {
-        Book existing = bookRepository.findById(book.getBookID());
-        if (existing != null) throw new RuntimeException("Book already exists.");
-
+        if (book.getBookID() == null) {
+            book.setBookID(BookRepository.generateNextId());
+        }else if (bookRepository.findById(book.getBookID()) != null) {
+            throw new RuntimeException("Book ID already exists.");
+        }
         bookRepository.insert(book);
     }
 
-    public void updateBook(int id, Book updated) {
+    public void updateBook(Integer id, Book updated) {
         Book existing = bookRepository.findById(id);
         if (existing == null) throw new RuntimeException("Book not found.");
 
@@ -32,12 +34,16 @@ public class BookService {
         existing.setAvailabilityStatus(updated.getAvailabilityStatus());
     }
 
-    public Book getBookDetails(int id) {
+    public Book getBookDetails(Integer id) {
         return bookRepository.findById(id);
     }
 
-    public List<Book> getAllBooks() {;
+    public List<Book> getAllBooks() {
         return bookRepository.findAll();
+    }
+
+    public Book getBookById(Integer id) {
+        return bookRepository.findById(id);
     }
 
 }

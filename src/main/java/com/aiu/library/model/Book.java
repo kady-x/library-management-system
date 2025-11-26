@@ -1,14 +1,14 @@
 package com.aiu.library.model;
 
 public class Book {
-    private int bookID;
+    private Integer bookID;
     private String title;
     private String author;
     private String genre;
-    private int publicationYear;
-    private boolean availabilityStatus;
+    private Integer publicationYear;
+    private Boolean availabilityStatus;
 
-    public Book(int bookID, String title, String author, String genre, int publicationYear, boolean availabilityStatus) {
+    public Book(Integer bookID, String title, String author, String genre, Integer publicationYear, Boolean availabilityStatus) {
         this.bookID = bookID;
         this.title = title;
         this.author = author;
@@ -17,7 +17,7 @@ public class Book {
         this.availabilityStatus = availabilityStatus;
     }
 
-    public int getBookID() {
+    public Integer getBookID() {
         return bookID;
     }
 
@@ -33,12 +33,16 @@ public class Book {
         return genre;
     }
 
-    public int getPublicationYear() {
+    public Integer getPublicationYear() {
         return publicationYear;
     }
 
-    public boolean getAvailabilityStatus() {
+    public Boolean getAvailabilityStatus() {
         return availabilityStatus;
+    }
+
+    public void setBookID(Integer bookID) {
+        this.bookID = bookID;
     }
 
     public void setTitle(String title) {
@@ -53,11 +57,11 @@ public class Book {
         this.genre = genre;
     }
 
-    public void setPublicationYear(int publicationYear) {
+    public void setPublicationYear(Integer publicationYear) {
         this.publicationYear = publicationYear;
     }
 
-    public void setAvailabilityStatus(boolean availabilityStatus) {
+    public void setAvailabilityStatus(Boolean availabilityStatus) {
         this.availabilityStatus = availabilityStatus;
     }
 }

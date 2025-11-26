@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public class BookRepository {
 
-    private BookBST bst = new BookBST();
+    private static BookBST bst = new BookBST();
 
     public void insert(Book book) {
         bst.addBook(book);
@@ -21,11 +21,17 @@ public class BookRepository {
         bst.updateBookInfo(book);
     }
 
-    public void delete(int id) {
+    public void delete(Integer id) {
         bst.delete(id);
     }
 
-    public Book findById(int id) {
+    public static Integer generateNextId() {
+        Integer maxId = bst.findMaxId(bst.getRoot());
+        return (maxId == null) ? 1 : maxId + 1;
+    }
+
+
+    public Book findById(Integer id) {
         return bst.searchByID(id);
     }
     

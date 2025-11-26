@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Books</title>
+</head>
+
+<body>
+
+    <h1>Library Books</h1>
+
+    <form id="editBookForm">
+        <input type="hidden" id="bookID">
+
+        <input type="text" name="title" placeholder="Title" required>
+        <input type="text" name="author" placeholder="Author" required>
+        <input type="text" name="genre" placeholder="Genre" required>
+        <input type="number" name="publicationYear" placeholder="Year" required>
+        <select name="availabilityStatus" title="Availability Status" required>
+            <option value="true">Available</option>
+            <option value="false">Not Available</option>
+        </select>
+        
+        <button type="submit">Save</button>
+    </form>
+
+
+
+    <script src="/js/books/books-edit.js"></script>
+</body>
+
+</html>

@@ -2,6 +2,11 @@ package com.aiu.library.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import com.aiu.library.service.BookService;
 import com.aiu.library.model.Book;
 import java.util.List;
@@ -16,14 +21,23 @@ public class BookController {
         this.bookService = bookService;
     }
 
-    @RequestMapping
+    @GetMapping
     public List<Book> getAllBooks() {
-        List<Book> books = bookService.getAllBooks();
-        books.add(new Book(1, "To Kill a Mockingbird", "Harper Lee", "Fiction", 1960, true));
-        books.add(new Book(2, "1984", "George Orwell", "Dystopian", 1949, true));
-        books.add(new Book(3, "The Great Gatsby", "F. Scott Fitzgerald", "Classic", 1925, false));
-        books.add(new Book(4, "The Catcher in the Rye", "J.D. Salinger", "Fiction", 1951, true));
-        books.add(new Book(5, "Pride and Prejudice", "Jane Austen", "Romance", 1813, false));
-        return books;
+        return bookService.getAllBooks();
+    }
+
+    @GetMapping("/{id}")
+    public Book getBook(@PathVariable int id) {
+        return bookService.getBookById(id);
+    }
+
+    @PostMapping
+    public void addBook(@RequestBody Book book) {
+        bookService.addBook(book);
+    }
+
+    @PutMapping("/{id}")
+    public void updateBook(@PathVariable int id, @RequestBody Book book) {
+        bookService.updateBook(id, book);
     }
 }

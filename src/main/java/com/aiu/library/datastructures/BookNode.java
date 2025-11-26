@@ -28,8 +28,8 @@ public class BookNode {
         }
     }
 
-    public Book searchById(int id) {
-        if (id == this.data.getBookID()) return this.data;
+    public Book searchById(Integer id) {
+        if (id.equals(this.data.getBookID())) return this.data;
 
         if (id < this.data.getBookID()) {
             return (left == null) ? null : left.searchById(id);

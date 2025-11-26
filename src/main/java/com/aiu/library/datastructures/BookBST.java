@@ -29,11 +29,11 @@ public class BookBST {
         addBook(updatedBook);
     }
 
-    public void delete(int id) {
+    public void delete(Integer id) {
         root = deleteRec(root, id);
     }
 
-    private BookNode deleteRec(BookNode node, int id) {
+    private BookNode deleteRec(BookNode node, Integer id) {
         if (node == null) return null;
 
         if (id < node.data.getBookID()) {
@@ -52,7 +52,7 @@ public class BookBST {
         return node;
     }
 
-    public Book searchByID(int id) {
+    public Book searchByID(Integer id) {
         if (root == null) return null;
         return root.searchById(id);
     }
@@ -80,6 +80,14 @@ public class BookBST {
             books.add(node.data);
             inOrderTraversal(node.right, books);
         }
+    }
+
+    public Integer findMaxId(BookNode node) {
+        if (node == null) return null;
+        while (node.right != null) {
+            node = node.right;
+        }
+        return node.data.getBookID();
     }
 
 }
