@@ -1,0 +1,37 @@
+# Exclude Maven target directory
+target/
+
+# Exclude Git
+.git/
+.gitignore
+.gitattributes
+
+# Exclude IDE files
+.idea/
+*.iml
+.vscode/
+
+# Exclude Docker files
+Dockerfile
+.dockerignore
+
+# Exclude documentation and logs
+*.log
+*.md
+docs/
+
+# Exclude temporary files
+*.tmp
+*.swp
+.DS_Store
+
+# Exclude Gradle (if any)
+.gradle/
+build/
+
+# Exclude test results
+test-results/
+surefire-reports/
+
+# Exclude OS specific files
+Thumbs.db
