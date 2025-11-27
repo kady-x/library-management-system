@@ -1,23 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BookSite - Dashboard</title>
     <link rel="stylesheet" th:href="@{/css/style.css}" />
 </head>
+
 <body>
 
-<main>
-    <h1>- Welcome to BookSite -</h1>
+    <section class="body-section">
+        <aside class="sidebar">
+            <a href="dashboard" class="active">Dashboard</a>
+            <a href="books">Books</a>
+            <a href="borrow">Borrow</a>
+            <a href="members">Members</a>
+            <a href="waitinglist">Waiting list</a>
+        </aside>
 
-    <p style="text-align:center; color:#777;">No books available.</p>
-    <p style="text-align:center; color:#777;">Be the First to
-        <a href="books" class="submit-btn">Submit</a> a Book!</p>
-</main>
+        <main>
+            <h1>- Welcome to Library Management System -</h1>
 
-<footer>
-    Booksite Project - Data Project
-</footer>
+            <p style="text-align:center; color:#777;">No books available.</p>
+            <p style="text-align:center; color:#777;">Be the First to
+                <a href="books" class="submit-btn">Submit</a> a Book!
+            </p>
+        </main>
+    </section>
+
+    <footer>
+        Library Management System Project - AIU
+    </footer>
 
 </body>
+
 </html>
