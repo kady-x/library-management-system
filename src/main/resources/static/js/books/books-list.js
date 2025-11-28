@@ -5,19 +5,22 @@ async function loadBooks() {
     const table = document.getElementById("bookTable");
     table.innerHTML = "";
 
-    books.forEach(book => {
-        const row = `
-            <tr>
-                <td>${book.bookID}</td>
-                <td>${book.title}</td>
-                <td>${book.author}</td>
-                <td>${book.genre}</td>
-                <td>${book.publicationYear}</td>
-                <td>${book.availabilityStatus}</td>
-            </tr>
-        `;
-        table.innerHTML += row;
-    });
+    const rows = books.map(book => `
+        <tr>
+            <td>${book.bookID}</td>
+            <td>${book.title}</td>
+            <td>${book.author}</td>
+            <td>${book.genre}</td>
+            <td>${book.publicationYear}</td>
+            <td>${book.availabilityStatus}</td>
+            <td>
+                <a href="/books/edit/${book.bookID}" class="edit-btn">Edit</a>
+                <button onclick="deleteBook(${book.bookID})">Delete</button>
+            </td>
+        </tr>
+    `).join("");
+
+    table.innerHTML = rows;
 }
 
 function deleteBook(id) {

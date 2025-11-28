@@ -104,6 +104,16 @@ main {
     border-radius: 12px;
     box-sizing: border-box;
     overflow-y: auto;
+    text-align: center;
+}
+
+main table {
+    margin: 20px auto 0;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    font-size: 20px;
 }
 
 h1 {
@@ -111,6 +121,36 @@ h1 {
     color: #1a1a1a;
     font-size: 2.2em;
     letter-spacing: 1px;
+}
+
+td a {
+    text-decoration: none;
+    background: royalblue;
+    color: #fff;
+    text-align: center;
+    border: 2px solid #0056b3;
+    border-radius: 4px;
+    font-size: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+td button {
+    background: indianred;
+    font-weight: bold;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+td a:hover {
+    transition: all 0.3s ease;
+    background: #007BFF;
+}
+
+td button:hover {
+    transition: all 0.3s ease;
+    background: red;
 }
 
 .submit-btn {
@@ -129,10 +169,20 @@ h1 {
 }
 
 
+
 .submit-btn:hover {
     background: #0056b3;
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+th {
+    vertical-align: inherit;
+    font-weight: bold;
+    text-align: center;
+    unicode-bidi: isolate;
+    padding: 10px;
+    border: 1px solid white;
 }
 
 footer {
