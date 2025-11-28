@@ -9,12 +9,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class PagesController {
 
     @GetMapping({"/", "/dashboard"})
-    public String dashboardPage() {
+    public String dashboardPage(Model model) {
+        model.addAttribute("currentPage", "dashboard");
         return "pages/dashboard";
     }
 
     @GetMapping({"/books", "/books/", "/books/list"})
-    public String showBooksPage() {
+    public String showBooksPage(Model model) {
+        model.addAttribute("currentPage", "books");
         return "pages/books/list";
     }
 
@@ -30,4 +32,3 @@ public class PagesController {
     }
 
 }
-
