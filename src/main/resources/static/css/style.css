@@ -1,8 +1,11 @@
 body {
     font-family: 'Verdana', sans-serif;
-    margin: 0;
+    margin: 0 auto;
     padding: 0;
     display: flex;
+    background: #1a1a1a;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 3);
+    border-radius: 8px;
     flex-direction: column;
     min-height: 100vh;
 }
@@ -47,7 +50,7 @@ body {
     cursor: pointer;
     align-self: flex-end;
     margin-bottom: 10px;
-    border-radius: 0 16px 0 0;
+    border-radius: 0 16px 0 16px;
 }
 
 .sidebar-toggle:hover {
@@ -68,6 +71,8 @@ body {
 .sidebar a .icon {
     font-size: 20px;
     margin-right: 10px;
+    color: transparent;
+    text-shadow: 0 0 0 white;
 }
 
 .sidebar a .text {
@@ -99,7 +104,7 @@ main {
     flex: 1;
     margin: 20px;
     padding: 20px;
-    background: #ffffff;
+    background: #121212;
     box-shadow: 0 4px 20px rgba(0,0,0,0.1);
     border-radius: 12px;
     box-sizing: border-box;
@@ -118,9 +123,13 @@ main table {
 
 h1 {
     text-align: center;
-    color: #1a1a1a;
-    font-size: 2.2em;
-    letter-spacing: 1px;
+    color: white;
+    font-size: 60px;
+}
+
+td {
+    color: white;
+    padding: 15px;
 }
 
 td a {
@@ -141,6 +150,7 @@ td button {
     font-weight: bold;
     font-size: 20px;
     cursor: pointer;
+    color: white;
 }
 
 td a:hover {
@@ -163,12 +173,11 @@ td button:hover {
     border: 2px solid #0056b3;
     border-radius: 4px;
     cursor: pointer;
+    text-decoration: none;
     font-weight: bold;
     transition: all 0.3s ease;
     white-space: nowrap;
 }
-
-
 
 .submit-btn:hover {
     background: #0056b3;
@@ -176,13 +185,64 @@ td button:hover {
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
+.container {
+    display: flex;
+    border: white;
+    border-radius: 25px;
+    background: #121212;
+    padding: 80px;
+    margin: 60px auto;
+    width: fit-content;
+}
+
+#addBookForm, #editBookForm {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    align-items: center;
+}
+
+#addBookForm input,
+#addBookForm select,
+#addBookForm button,
+#editBookForm input,
+#editBookForm select,
+#editBookForm button {
+    width: 235px;
+    height: 35px;
+    font-size: 16px;
+    padding: 5px 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
 th {
     vertical-align: inherit;
     font-weight: bold;
     text-align: center;
     unicode-bidi: isolate;
+    color: white;
     padding: 10px;
     border: 1px solid white;
+}
+
+#addBookForm button,
+#editBookForm button {
+    cursor: pointer;
+    background: none;
+    border: none;
+    background: #007BFF;
+    color: white;
+    font-size: 18px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 0 16px 0 16px;
+}
+
+#addBookForm button:hover,
+#editBookForm button:hover {
+    transition: all 0.3s ease;
+    border-radius:  16px 0 16px 0;
 }
 
 footer {

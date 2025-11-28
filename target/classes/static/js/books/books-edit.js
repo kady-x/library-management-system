@@ -45,7 +45,7 @@ document.getElementById("editBookForm").addEventListener("submit", async (e) => 
 
     if (response.ok) {
         alert("Book updated successfully");
-        window.location.href = "../";
+        window.location.href = "../../books";
     } else {
         alert("Failed to update book");
     }
