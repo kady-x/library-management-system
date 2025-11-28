@@ -14,8 +14,6 @@ async function loadBooks() {
                 <td>${book.genre}</td>
                 <td>${book.publicationYear}</td>
                 <td>${book.availabilityStatus}</td>
-                <td><a href="/books/edit/${book.bookID}">Edit</a>
-                <br><button onclick="deleteBook(${book.bookID})">Delete</button></td>
             </tr>
         `;
         table.innerHTML += row;
