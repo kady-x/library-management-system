@@ -5,14 +5,16 @@ public class Book {
     private String title;
     private String author;
     private String genre;
+    private String coverUrl;
     private Integer publicationYear;
     private Boolean availabilityStatus;
 
-    public Book(Integer bookID, String title, String author, String genre, Integer publicationYear, Boolean availabilityStatus) {
+    public Book(Integer bookID, String title, String author, String genre, String coverUrl, Integer publicationYear, Boolean availabilityStatus) {
         this.bookID = bookID;
         this.title = title;
         this.author = author;
         this.genre = genre;
+        this.coverUrl = coverUrl;
         this.publicationYear = publicationYear;
         this.availabilityStatus = availabilityStatus;
     }
@@ -33,6 +35,8 @@ public class Book {
         return genre;
     }
 
+    public String getCoverUrl() {return this.coverUrl;}
+
     public Integer getPublicationYear() {
         return publicationYear;
     }
@@ -44,6 +48,8 @@ public class Book {
     public void setBookID(Integer bookID) {
         this.bookID = bookID;
     }
+
+    public void setCoverUrl(String coverUrl) {this.coverUrl = coverUrl;}
 
     public void setTitle(String title) {
         this.title = title;

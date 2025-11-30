@@ -30,6 +30,7 @@ public class BookService {
         existing.setTitle(updated.getTitle());
         existing.setAuthor(updated.getAuthor());
         existing.setGenre(updated.getGenre());
+        existing.setCoverUrl(updated.getCoverUrl());
         existing.setPublicationYear(updated.getPublicationYear());
         existing.setAvailabilityStatus(updated.getAvailabilityStatus());
     }

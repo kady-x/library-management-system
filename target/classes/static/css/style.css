@@ -3,12 +3,13 @@ body {
     margin: 0 auto;
     padding: 0;
     display: flex;
-    background: #1a1a1a;
+    background: #1b1b1f;
     box-shadow: 0 0 20px rgba(0, 0, 0, 3);
     border-radius: 8px;
     flex-direction: column;
     min-height: 100vh;
 }
+
 
 .body-section {
     display: flex;
@@ -29,7 +30,7 @@ body {
 .sidebar {
     display: flex;
     flex-direction: column;
-    background-color: #004080;
+    background-color: #0e2340;
     width: 200px;
     margin: 10px 0;
     min-height: 100%;
@@ -60,12 +61,12 @@ body {
 .sidebar a {
     display: flex;
     align-items: center;
-    color: white;
+    color: #e6e6e6;
     text-decoration: none;
     padding: 12px 16px;
-    border-bottom: 1px solid #0056b3;
+    border-bottom: 1px solid #143a66;
     border-radius: 0 16px 16px 0;
-    transition: padding 0.3s ease;
+    transition: padding 0.3s ease, background 0.2s ease;
 }
 
 .sidebar a .icon {
@@ -93,19 +94,19 @@ body {
 }
 
 .sidebar a.active {
-    background-color: #0467d1;
+    background-color: #1b4f8a;
 }
 
 .sidebar a:hover {
-    background-color: #0056b3;
+    background-color: #143a66;
 }
 
 main {
     flex: 1;
     margin: 20px;
     padding: 20px;
-    background: #121212;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    background: #1f1f23;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
     border-radius: 12px;
     box-sizing: border-box;
     overflow-y: auto;
@@ -124,7 +125,28 @@ main table {
 h1 {
     text-align: center;
     color: white;
-    font-size: 60px;
+    font-size: 40px;
+}
+
+h2 {
+    color: white;
+    text-align: center;
+    font-size: 20px;
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+h3 {
+    color: gray;
+    text-align: center;
+    font-size: 12px;
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+p {
+    text-align:center;
+    color:#777;
 }
 
 td {
@@ -190,15 +212,46 @@ td button:hover {
     border: white;
     border-radius: 25px;
     background: #121212;
-    padding: 80px;
-    margin: 60px auto;
+    padding: 60px;
+    margin: 10px auto;
     width: fit-content;
+}
+
+#book-grid {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.book-card {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    border-radius: 18px;
+    background: #26262b;
+    margin: 10px auto;
+    padding: 20px;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.book-card:hover {
+    transform: translateY(-5px);
+    background: #2f2f35;
+    cursor: pointer;
+}
+
+.book-card img {
+    display: flex;
+    justify-content: center;
+    border-radius: 25px;
+    height: 250px;
+    width: auto;
 }
 
 #addBookForm, #editBookForm {
     display: flex;
     flex-direction: column;
-    gap: 50px;
+    gap: 40px;
     align-items: center;
 }
 
@@ -208,8 +261,8 @@ td button:hover {
 #editBookForm input,
 #editBookForm select,
 #editBookForm button {
-    width: 235px;
-    height: 35px;
+    width: 230px;
+    height: 36px;
     font-size: 16px;
     padding: 5px 10px;
     border-radius: 8px;
@@ -246,8 +299,8 @@ th {
 }
 
 footer {
-    background: #004080;
-    color: #e6e6e6;
+    background: #0e2340;
+    color: #d0d0d0;
     text-align: center;
     padding: 16px;
     font-size: 15px;

@@ -9,21 +9,21 @@
 </head>
 
 <body>
-
     <section class="body-section">
         <div th:replace="~{fragments/sidebar :: sidebar}"></div>
 
         <main>
             <h1>- Welcome to Library Management System -</h1>
 
-            <p style="text-align:center; color:#777;">No books available.</p>
-            <p style="text-align:center; color:#777;">Be the First to
-                <a href="books" class="submit-btn">Submit</a> a Book!
-            </p>
+            <div id="book-grid"></div>
+
+            <div id="title">
+            </div>
         </main>
     </section>
 
     <script src="/js/sidebar.js"></script>
+    <script src="/js/dashboard.js"></script>
 </body>
 
 <footer>
