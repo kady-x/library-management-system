@@ -33,6 +33,7 @@ document.getElementById("editBookForm").addEventListener("submit", async (e) => 
         title: form.title.value,
         author: form.author.value,
         genre: form.genre.value,
+        coverUrl: form.coverUrl.value,
         publicationYear: Number(form.publicationYear.value),
         availabilityStatus: form.availabilityStatus.value === "true"
     };
