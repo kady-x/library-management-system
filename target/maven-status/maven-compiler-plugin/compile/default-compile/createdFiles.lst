@@ -24,7 +24,6 @@ com\aiu\library\controller\BillingController.class
 com\aiu\library\repository\BillingRepository.class
 com\aiu\library\controller\BookController.class
 com\aiu\library\controller\MemberController.class
-com\aiu\library\datastructures\MemberList.class
 com\aiu\library\repository\BorrowRecordRepository.class
 com\aiu\library\controller\WaitingListController.class
 com\aiu\library\repository\WaitingListRepository.class

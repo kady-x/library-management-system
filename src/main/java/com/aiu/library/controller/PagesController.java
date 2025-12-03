@@ -31,4 +31,10 @@ public class PagesController {
         return "pages/books/edit";
     }
 
+    @GetMapping("/borrow")
+    public String showBorrowPage(Model model) {
+        model.addAttribute("currentPage", "borrow");
+        return "pages/borrow/borrow";
+    }
+
 }
