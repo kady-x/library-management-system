@@ -15,29 +15,29 @@ import java.util.List;
 @RequestMapping("/api/books")
 public class BookController {
 
-    private final BookService bookService;
+    private final BookService service;
 
-    public BookController(BookService bookService) {
-        this.bookService = bookService;
+    public BookController(BookService service) {
+        this.service = service;
     }
 
     @GetMapping
     public List<Book> getAllBooks() {
-        return bookService.getAllBooks();
+        return service.getAllBooks();
     }
 
     @GetMapping("/{id}")
     public Book getBook(@PathVariable int id) {
-        return bookService.getBookById(id);
+        return service.getBookById(id);
     }
 
     @PostMapping
     public void addBook(@RequestBody Book book) {
-        bookService.addBook(book);
+        service.addBook(book);
     }
 
     @PutMapping("/{id}")
     public void updateBook(@PathVariable int id, @RequestBody Book book) {
-        bookService.updateBook(id, book);
+        service.updateBook(id, book);
     }
 }

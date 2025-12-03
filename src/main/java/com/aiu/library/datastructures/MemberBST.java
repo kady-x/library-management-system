@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.aiu.library.model.Member;
 
-public class MemberList {
+public class MemberBST {
     class Node {
         Member data;
         Node left, right;

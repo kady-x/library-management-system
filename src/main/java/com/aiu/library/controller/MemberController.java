@@ -17,10 +17,14 @@ import com.aiu.library.service.MemberService;
 @RestController
 @RequestMapping("/members")
 public class MemberController {
-    @Autowired
-    private MemberService service;
 
-    // Add a new member
+    @Autowired
+    private final MemberService service;
+
+    public MemberController(MemberService service) {
+        this.service = service;
+    }
+
     @PostMapping("/members/add")
     public Member addMember(@RequestBody Member m) {
         return service.registerMember(m);

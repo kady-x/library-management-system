@@ -1,6 +1,16 @@
 package com.aiu.library.model;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
+@Entity
+@Table(name = "books")
 public class Book {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer bookID;
     private String title;
     private String author;
@@ -8,8 +18,11 @@ public class Book {
     private String coverUrl;
     private Integer publicationYear;
     private Boolean availabilityStatus;
+    
+    public Book() {}
 
-    public Book(Integer bookID, String title, String author, String genre, String coverUrl, Integer publicationYear, Boolean availabilityStatus) {
+    public Book(Integer bookID, String title, String author, String genre,
+                String coverUrl, Integer publicationYear, Boolean availabilityStatus) {
         this.bookID = bookID;
         this.title = title;
         this.author = author;

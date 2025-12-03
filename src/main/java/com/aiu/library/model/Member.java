@@ -2,14 +2,38 @@ package com.aiu.library.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
+@Entity
+@Table(name = "members")
 public class Member {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer memberId;
     private String name ;
     private String contactInfo;
     private String membershipDate;
+    
+    @OneToMany
     private List<Book> borrowedBooks = new ArrayList<>();
     
+    public Member() {}
+
+    public Member(Integer memberId, String name, String contactInfo,
+                  String membershipDate, List<Book> borrowedBooks) {
+        this.memberId = memberId;
+        this.name = name;
+        this.contactInfo = contactInfo;
+        this.membershipDate = membershipDate;
+        this.borrowedBooks = new ArrayList<>(borrowedBooks);
+    }
+
     public Integer getMemberId() {
         return memberId;
     }
