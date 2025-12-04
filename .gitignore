@@ -1,17 +1,5 @@
-<<<<<<< HEAD
-# Compiled class file
 *.class
-
-# Log file
 *.log
-
-# BlueJ files
-*.ctxt
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
 *.jar
 *.war
 *.nar
@@ -19,42 +7,24 @@
 *.zip
 *.tar.gz
 *.rar
-
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
-replay_pid*
-=======
-HELP.md
-target/
 .mvn/wrapper/maven-wrapper.jar
+target/
 !**/src/main/**/target/
 !**/src/test/**/target/
-
-### STS ###
-.apt_generated
+.idea
 .classpath
-.factorypath
 .project
 .settings
-.springBeans
-.sts4-cache
-
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
-
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
+.vscode/
 build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
-### VS Code ###
-.vscode/
->>>>>>> ecf4bd1 (init)
+### Docker ###
+.env
+docker-compose.override.yml
+*.log
+
+### Misc ###
+HELP.md

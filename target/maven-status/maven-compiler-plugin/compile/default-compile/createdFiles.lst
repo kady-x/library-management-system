@@ -1,5 +1,6 @@
 com\aiu\library\controller\PagesController.class
 com\aiu\library\datastructures\BorrowRecordList.class
+com\aiu\library\DotenvConfig.class
 com\aiu\library\controller\ReportController.class
 com\aiu\library\service\BillingService.class
 com\aiu\library\service\BorrowService.class
@@ -12,7 +13,9 @@ com\aiu\library\controller\DashboardController.class
 com\aiu\library\repository\MemberRepository.class
 com\aiu\library\datastructures\BookNode.class
 com\aiu\library\model\Member.class
+com\aiu\library\datastructures\MemberBST$Node.class
 com\aiu\library\service\WaitingListService.class
+com\aiu\library\repository\BookJpaRepository.class
 com\aiu\library\repository\BookRepository.class
 com\aiu\library\service\MemberService.class
 com\aiu\library\service\ReportService.class
@@ -24,6 +27,7 @@ com\aiu\library\controller\BillingController.class
 com\aiu\library\repository\BillingRepository.class
 com\aiu\library\controller\BookController.class
 com\aiu\library\controller\MemberController.class
+com\aiu\library\datastructures\MemberBST.class
 com\aiu\library\repository\BorrowRecordRepository.class
 com\aiu\library\controller\WaitingListController.class
 com\aiu\library\repository\WaitingListRepository.class

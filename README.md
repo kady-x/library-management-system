@@ -170,7 +170,7 @@ Note: If you switch ID management strategies, ensure the DB column definitions (
 - Java 17 or higher
 - Maven 3.6+
 - MySQL 8.0+ (or Docker)
-- An IDE (IntelliJ IDEA, Eclipse, or VS Code)
+- An IDE (IntelliJ IDEA, or VS Code)
 
 ---
 
@@ -189,13 +189,21 @@ cd library
 CREATE DATABASE LMS;
 ```
 
-Update `src/main/resources/application.properties` with your DB credentials:
+The application uses environment variables for database configuration with sensible defaults. For local development, set the following environment variables:
+
+- `SPRING_DATASOURCE_URL=jdbc:mysql://127.0.0.1:3306/LMS?useSSL=false&serverTimezone=UTC`
+- `SPRING_DATASOURCE_USERNAME=your_username`
+- `SPRING_DATASOURCE_PASSWORD=your_password`
+
+Alternatively, you can modify the defaults directly in `src/main/resources/application.properties`, which uses `${VAR:default}` syntax:
 
 ```properties
-spring.datasource.url=jdbc:mysql://127.0.0.1:3306/LMS?useSSL=false&serverTimezone=UTC
-spring.datasource.username=your_username
-spring.datasource.password=your_password
+spring.datasource.url=${SPRING_DATASOURCE_URL:jdbc:mysql://127.0.0.1:3306/LMS?useSSL=false&serverTimezone=UTC}
+spring.datasource.username=${SPRING_DATASOURCE_USERNAME:root}
+spring.datasource.password=${SPRING_DATASOURCE_PASSWORD:}
 ```
+
+**Note:** For local runs, use `127.0.0.1` as the host. For Docker Compose (see below), the host is `mysql`.
 
 3. Build the project:
 
@@ -220,19 +228,98 @@ http://localhost:8080
 
 ## Docker Deployment
 
-Build the Docker image:
+### Option 1: Docker Compose (Recommended)
+
+> Prerequisites: Docker and Docker Compose installed on your machine.
+
+Start the full stack (app + MySQL):
+
+```bash
+docker-compose up -d
+```
+
+View logs:
+
+```bash
+docker-compose logs -f
+```
+
+Stop the stack:
+
+```bash
+docker-compose down
+```
+
+Stop and remove volumes (data):
+
+```bash
+docker-compose down -v
+```
+
+Access the app at: `http://localhost:8080`
+
+Notes:
+- First startup may take 30-60s while MySQL initializes and the app waits for DB readiness.
+- The compose file defines a named volume `mysql-data` that persists MySQL data across restarts.
+
+### Option 2: Standalone Docker (App Only)
+
+Build the app image:
 
 ```bash
 docker build -t library-app .
 ```
 
-Run the container:
+Run the image (requires an external MySQL instance):
 
 ```bash
-docker run -p 8080:8080 --name library-app library-app:latest
+docker run -p 8080:8080 \
+	-e SPRING_DATASOURCE_URL="jdbc:mysql://host.docker.internal:3306/LMS?useSSL=false&serverTimezone=UTC" \
+	-e SPRING_DATASOURCE_USERNAME=root \
+	-e SPRING_DATASOURCE_PASSWORD=your_password \
+	--name library-app library-app:latest
 ```
 
-For a multi-container setup (application + MySQL) use `docker-compose` and point `spring.datasource.url` to the MySQL service name.
+Replace `host.docker.internal` with your MySQL host (or `mysql` when using docker-compose).
+
+### Environment Variables
+
+The application reads DB configuration from environment variables with sensible defaults. You can provide these via `docker-compose.yml`, a `.env` file or `docker run -e`.
+
+| Variable | Default | Description |
+|---|---:|---|
+| `SPRING_DATASOURCE_URL` | `jdbc:mysql://127.0.0.1:3306/LMS?useSSL=false&serverTimezone=UTC` | JDBC URL for MySQL; in compose use `jdbc:mysql://mysql:3306/LMS...` |
+| `SPRING_DATASOURCE_USERNAME` | `root` | DB user |
+| `SPRING_DATASOURCE_PASSWORD` | `` (empty) | DB password |
+| `SPRING_JPA_HIBERNATE_DDL_AUTO` | `update` | Hibernate DDL strategy (update/create/validate) |
+| `APP_PORT` | `8080` | Application HTTP port |
+
+See `.env.example` for a template you can copy to `.env`.
+
+### Troubleshooting
+
+- Connection refused: Wait for MySQL to finish initializing. Check MySQL logs:
+
+```bash
+docker-compose logs mysql
+```
+
+- Port conflicts: Change host port mapping in `docker-compose.yml` or `docker run` command.
+
+- Data persistence: `mysql-data` volume stores MySQL data. Remove with `docker-compose down -v` if you need a fresh DB.
+
+- Rebuilding after code changes: rebuild the app image and restart:
+
+```bash
+docker-compose up --build -d
+```
+
+### Production Considerations
+
+- Change default MySQL passwords before deploying to production.
+- Use Docker secrets or an external secrets manager for sensitive credentials.
+- Consider using a managed database for durability and backups.
+
 
 ---
 
@@ -346,4 +433,3 @@ This project is licensed under the Apache License 2.0 — see the `LICENSE` file
 - Thymeleaf
 - MySQL
 - Open-source libraries used in the project
-
