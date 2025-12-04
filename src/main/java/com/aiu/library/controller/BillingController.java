@@ -17,15 +17,15 @@ public class BillingController {
         this.service = service;
     }
 
-    @GetMapping()
+    @GetMapping("/{memberID}")
     public double calculateFine(
             @PathVariable Long memberID,
-            @RequestParam String dueDate) {  
+            @RequestParam String dueDate) {
         LocalDate date = LocalDate.parse(dueDate);
         return service.calculateFine(memberID, date);
     }
 
-    @PostMapping()
+    @PostMapping("/{memberID}")
     public String payFine(
             @PathVariable Long memberID,
             @RequestParam double amount) {

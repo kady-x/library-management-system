@@ -25,25 +25,25 @@ public class MemberController {
         this.service = service;
     }
 
-    @PostMapping("/members/add")
+    @PostMapping("/add")
     public Member addMember(@RequestBody Member m) {
         return service.registerMember(m);
     }
 
     // Get member by ID
-    @GetMapping("/members/{id}")
+    @GetMapping("/{id}")
     public Member getMember(@PathVariable int id) {
         return service.getMemberById(id);
     }
 
     // List all members (sorted)
-    @GetMapping("/members/all")
+    @GetMapping("/all")
     public List<Member> listMembers() {
         return service.getAllMembers();
     }
 
     // Update contact info
-    @PutMapping("/members/edit/{id}")
+    @PutMapping("/edit/{id}")
     public String updateContact(@PathVariable int id, @RequestBody String newContact) {
         boolean updated = service.updateContact(id, newContact);
 
