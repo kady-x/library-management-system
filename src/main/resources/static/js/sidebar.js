@@ -2,10 +2,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const sidebar = document.getElementById('sidebar');
     const toggleBtn = document.getElementById('sidebar-toggle');
 
-    const isMinimized = localStorage.getItem('sidebarMinimized') === 'true';
-    if (isMinimized) {
-        sidebar.classList.add('minimized');
-        toggleBtn.textContent = '»';
+    toggleBtn.textContent = '»';
+
+    const isMaximized = localStorage.getItem('sidebarMinimized') === 'false';
+    if (isMaximized) {
+        sidebar.classList.remove('minimized'); // start maximized
+        toggleBtn.textContent = '«';
     }
 
     toggleBtn.addEventListener('click', function () {
