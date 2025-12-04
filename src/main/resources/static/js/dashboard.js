@@ -10,7 +10,7 @@ async function loadBooks() {
     const dashboardRows = books.map(book => `
         <div class="book-card">
             <img src="${book.coverUrl}" alt="No Book">
-            <h2><b>Title: </b>${book.title}</h2>
+            <h2>${book.title}</h2>
             <h3><b>Author: </b> <span>${book.author}</span></h3>
         </div>
     `).join("");

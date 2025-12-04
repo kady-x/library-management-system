@@ -1,9 +1,8 @@
 package com.aiu.library.datastructures;
 
+import com.aiu.library.model.Book;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.aiu.library.model.Book;
 
 public class BookBST {
     private BookNode root;

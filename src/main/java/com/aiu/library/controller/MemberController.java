@@ -1,21 +1,20 @@
 package com.aiu.library.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.aiu.library.model.Member;
+import org.springframework.web.bind.annotation.GetMapping;
 import com.aiu.library.service.MemberService;
+import com.aiu.library.model.Member;
+import java.util.List;
 
 @RestController
-@RequestMapping("/members")
+@RequestMapping("/api/members")
 public class MemberController {
 
     @Autowired
@@ -25,29 +24,28 @@ public class MemberController {
         this.service = service;
     }
 
-    @PostMapping("/add")
-    public Member addMember(@RequestBody Member m) {
-        return service.registerMember(m);
+    @GetMapping
+    public List<Member> getAllMembers() {
+        return service.getAllMembers();
     }
 
-    // Get member by ID
     @GetMapping("/{id}")
     public Member getMember(@PathVariable int id) {
         return service.getMemberById(id);
     }
 
-    // List all members (sorted)
-    @GetMapping("/all")
-    public List<Member> listMembers() {
-        return service.getAllMembers();
+    @PostMapping
+    public void addMember(@RequestBody Member member) {
+        service.registerMember(member);
     }
 
-    // Update contact info
-    @PutMapping("/edit/{id}")
-    public String updateContact(@PathVariable int id, @RequestBody String newContact) {
-        boolean updated = service.updateContact(id, newContact);
+    @PutMapping("/{id}")
+    public void updateMember(@PathVariable int id, @RequestBody Member member) {
+        service.updateMember(id, member);
+    }
 
-        return updated ? "Contact updated successfully."
-                       : "Member not found.";
+    @DeleteMapping("/{id}")
+    public void deleteMember(@PathVariable int id) {
+        service.deleteMember(id);
     }
 }
