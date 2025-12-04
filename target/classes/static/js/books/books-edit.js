@@ -15,6 +15,7 @@ async function loadBook(id) {
     document.querySelector("input[name='title']").value = book.title;
     document.querySelector("input[name='author']").value = book.author;
     document.querySelector("input[name='genre']").value = book.genre;
+    document.querySelector("input[name='coverUrl']").value = book.coverUrl;
     document.querySelector("input[name='publicationYear']").value = book.publicationYear;
     document.querySelector("select[name='availabilityStatus']").value = book.availabilityStatus;
 }
