@@ -85,4 +85,8 @@ public class BookRepository {
         bst.inOrderTraversal(bst.getRoot(), books);
         return books;
     }
+
+    public List<Book> searchBooks(String query) {
+        return bst.searchBooks(query);
+    }
 }

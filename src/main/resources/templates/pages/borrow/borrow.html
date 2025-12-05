@@ -1,37 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Borrow Book</title>
     <link rel="stylesheet" th:href="@{/css/style.css}" />
-</head>
-<body class="borrow-page">
+  </head>
+  <body>
+    <section class="body-section">
+      <div th:replace="~{fragments/sidebar :: sidebar}"></div>
 
-<div class="borrow-container">
-    <h2>Borrow Book</h2>
+      <main class="borrow-page">
+        <div class="borrow-container">
+          <h2>Borrow Book</h2>
 
-    <form>
-        <div class="row">
-            <div class="input-group">
+          <form>
+            <div class="row">
+              <div class="input-group">
                 <label>Member ID</label>
-                <input type="text" placeholder="Enter Member ID">
-            </div>
-            <div class="input-group">
+                <input type="text" placeholder="Enter Member ID" />
+              </div>
+              <div class="input-group">
                 <label>Book ID</label>
-                <input type="text" placeholder="Enter Book ID">
+                <input type="text" placeholder="Enter Book ID" />
+              </div>
             </div>
+
+            <label>Borrow Date</label>
+            <input type="date" />
+
+            <label>Due Date</label>
+            <input type="date" />
+
+            <button type="submit" class="borrow-button">Issue Book</button>
+          </form>
         </div>
+      </main>
+    </section>
 
-        <label>Borrow Date</label>
-        <input type="date">
+    <script src="/js/sidebar.js"></script>
+  </body>
+<footer>
+    Library Management System Project - AIU
+</footer>
 
-        <label>Due Date</label>
-        <input type="date">
-
-        <button type="submit" class="borrow-button">Issue Book</button>
-    </form>
-</div>
-
-</body>
 </html>
