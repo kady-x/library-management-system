@@ -35,7 +35,7 @@ public class WaitingListRepository {
     }
 
     public WaitingQueue getQueueForBook(Long bookId) {
-        // TODO Auto-generated method stub
+        
         throw new UnsupportedOperationException("Unimplemented method 'getQueueForBook'");
     }
 }
