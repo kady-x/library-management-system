@@ -17,7 +17,7 @@ public class WaitingListService {
     @Autowired private BookRepository bookRepo;
     @Autowired private MemberRepository memberRepo;
 
-    public String joinWaitingList(Long bookId, Long memberId) {
+    public String joinWaitingList(Long bookId, int memberId) {
         Member member = memberRepo.findById(memberId);
         if (member == null) return "Member not found!";
 
