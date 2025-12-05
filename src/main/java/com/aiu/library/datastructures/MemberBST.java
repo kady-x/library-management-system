@@ -3,6 +3,7 @@ package com.aiu.library.datastructures;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.aiu.library.model.Book;
 import com.aiu.library.model.Member;
 
 public class MemberBST {
@@ -64,5 +65,10 @@ public class MemberBST {
             list.add(root.data);
             inorderRec(root.right, list);
         }
+    }
+
+    public Book getName() {
+
+        throw new UnsupportedOperationException("Unimplemented method 'getName'");
     }
 }

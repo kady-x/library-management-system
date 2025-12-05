@@ -33,5 +33,9 @@ public class MemberRepository {
     public List<Member> findAll() {
         return memberList.listMembers();
     }
+    public Member findById(Long memberId) {
+        
+        throw new UnsupportedOperationException("Unimplemented method 'findById'");
+    }
 
 }

@@ -85,4 +85,12 @@ public class BookRepository {
         bst.inOrderTraversal(bst.getRoot(), books);
         return books;
     }
+
+    public boolean isBookAvailable(Long bookId) {
+        
+        throw new UnsupportedOperationException("Unimplemented method 'isBookAvailable'");
+    }
+
+    
+    
 }
