@@ -3,9 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Borrow Book</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
 </head>
-<body>
-    Borrow Page
+<body class="borrow-page">
+
+<div class="borrow-container">
+    <h2>Borrow Book</h2>
+
+    <form>
+        <div class="row">
+            <div class="input-group">
+                <label>Member ID</label>
+                <input type="text" placeholder="Enter Member ID">
+            </div>
+            <div class="input-group">
+                <label>Book ID</label>
+                <input type="text" placeholder="Enter Book ID">
+            </div>
+        </div>
+
+        <label>Borrow Date</label>
+        <input type="date">
+
+        <label>Due Date</label>
+        <input type="date">
+
+        <button type="submit" class="borrow-button">Issue Book</button>
+    </form>
+</div>
+
 </body>
 </html>

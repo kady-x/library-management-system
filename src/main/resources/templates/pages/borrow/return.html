@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Return Book</title>
+   <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body class="borrow-page"> 
+
+<div class="borrow-container"> 
+    <h2>Return Book</h2>
+
+    <form>
+
+        
+        <div class="row">
+            <div class="input-group">
+                <label>Member ID</label>
+                <input type="text" placeholder="Enter Member ID">
+            </div>
+            <div class="input-group">
+                <label>Book ID</label>
+                <input type="text" placeholder="Enter Book ID">
+            </div>
+        </div>
+
+        <label>Due Date</label>
+        <input type="date">
+
+        <label>Return Date</label>
+        <input type="date">
+
+        <label>Fine</label>
+        <input type="number" placeholder="Enter Fine">
+
+        <div class="row">
+            <button type="submit" class="borrow-button">Return</button>
+            <button type="reset" class="borrow-button">Reset</button>
+        </div>
+
+    </form>
+</div>
+
+</body>
+</html>
