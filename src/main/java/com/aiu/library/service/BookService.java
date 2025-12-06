@@ -40,6 +40,10 @@ public class BookService {
         return bookRepository.findAll();
     }
 
+    public List<Book> searchBooks(String query) {
+        return bookRepository.searchBooks(query);
+    }
+
     public Book getBookById(Integer id) {
         return bookRepository.findById(id);
     }
