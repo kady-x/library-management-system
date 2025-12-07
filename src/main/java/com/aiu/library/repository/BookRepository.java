@@ -86,17 +86,7 @@ public class BookRepository {
         return books;
     }
 
-<<<<<<< HEAD
-    public boolean isBookAvailable(Long bookId) {
-        
-        throw new UnsupportedOperationException("Unimplemented method 'isBookAvailable'");
-    }
-
-    
-    
-=======
     public List<Book> searchBooks(String query) {
         return bst.searchBooks(query);
     }
->>>>>>> 7cbc974d347ea0dc299e1db7dff050869507afcc
 }

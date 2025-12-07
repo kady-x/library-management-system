@@ -91,8 +91,7 @@ public class MemberBST {
         return node.data.getMemberId();
     }
 
-    public Book getName() {
-
+    public Member getName() {
         throw new UnsupportedOperationException("Unimplemented method 'getName'");
     }
 }
