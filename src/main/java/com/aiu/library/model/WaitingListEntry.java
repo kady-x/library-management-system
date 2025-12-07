@@ -1,30 +1,33 @@
 
 package com.aiu.library.model;
-<<<<<<< HEAD
-=======
-
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.Id;
->>>>>>> 04729fb8a1955cfaf27e62931dbd4c83b169ca81
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "waitinglist")
 public class WaitingListEntry {
-    private final Long memberId;
+
+    
+    @Id
+    private final int waitinglistID;
+    private final int memberId;
     private final String memberName;
     private final LocalDate addedDate;
 
-    public WaitingListEntry(Long memberId, String memberName) {
+    public WaitingListEntry(int waitinglistID, int memberId, String memberName) {
+        this.waitinglistID = waitinglistID;
         this.memberId = memberId;
         this.memberName = memberName;
         this.addedDate = LocalDate.now();
     }
 
-    public Long getMemberId() { return memberId; }
+    public int getMemberId() { return memberId; }
     public String getMemberName() { return memberName; }
     public LocalDate getAddedDate() { return addedDate; }
 

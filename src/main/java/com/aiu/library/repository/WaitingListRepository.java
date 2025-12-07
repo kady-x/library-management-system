@@ -34,7 +34,7 @@ public class WaitingListRepository {
         return new ArrayList<>(queue);
     }
 
-    public WaitingQueue getQueueForBook(Long bookId) {
+    public WaitingQueue getQueueForBook(int bookId) {
         
         throw new UnsupportedOperationException("Unimplemented method 'getQueueForBook'");
     }

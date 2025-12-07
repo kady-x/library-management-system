@@ -17,11 +17,11 @@ public class WaitingListService {
     @Autowired private BookRepository bookRepo;
     @Autowired private MemberRepository memberRepo;
 
-    public String joinWaitingList(Long bookId, int memberId) {
+    public String joinWaitingList(int bookId, int memberId) {
         Member member = memberRepo.findById(memberId);
         if (member == null) return "Member not found!";
 
-        if (bookRepo.isBookAvailable(bookId)) {
+        if (bookRepo.findById(bookId) != null) {
             return "Book is available! You can borrow it now.";
         }
 
@@ -32,12 +32,12 @@ public class WaitingListService {
         return "Added to waiting list. Your position: " + queue.size();
     }
 
-    public WaitingListEntry getNextInLine(Long bookId) {
+    public WaitingListEntry getNextInLine(int bookId) {
         WaitingQueue queue = waitingListRepo.getQueueForBook(bookId);
         return queue.peek();
     }
 
-    public void notifyAndRemoveNext(Long bookId) {
+    public void notifyAndRemoveNext(int bookId) {
         WaitingListEntry next = getNextInLine(bookId);
         if (next != null) {
             waitingListRepo.getQueueForBook(bookId).dequeue();
@@ -45,7 +45,7 @@ public class WaitingListService {
         }
     }
 
-    public WaitingQueue getWaitingList(Long bookId) {
+    public WaitingQueue getWaitingList(int bookId) {
         return waitingListRepo.getQueueForBook(bookId);
     }
 }
