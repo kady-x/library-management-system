@@ -349,3 +349,451 @@ footer {
     font-size: 15px;
     border-radius: 0 16px 0 0;
 }
+/* ===== List Section ===== */
+body.list {
+    background-color: #0a1a3c;  
+    color: white;               
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;  
+}
+
+body.list .list-header {
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+    padding: 20px;
+    margin-bottom: 20px;
+    color: white;
+}
+
+body.list .table-container {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+}
+
+body.list .book-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #12275e;   
+    border: 3px solid black;     
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+body.list .book-table thead th {
+    background-color: #0d1f49; 
+    padding: 12px;
+    border-bottom: 2px solid black;
+    color: white;
+}
+
+body.list .book-table td {
+    padding: 12px;
+    border-bottom: 1px solid #000;
+    color: white;
+}
+
+body.list .available {
+    color: lightgreen;
+    font-weight: bold;
+}
+
+body.list .unavailable {
+    color: #ff8080;
+    font-weight: bold;
+}
+
+body.list button {
+    padding: 8px 14px;
+    border: none;
+    margin: 3px;
+    cursor: pointer;
+    border-radius: 6px;
+    color: white;
+    font-weight: bold;
+}
+
+body.list .add-btn {
+    background-color: #0066cc;
+}
+
+body.list .remove-btn {
+    background-color: #cc0000;
+}
+
+body.list button:hover {
+    opacity: 0.8;
+}
+
+/* ===== Billing Section ===== */
+body.billing {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #0d1b2a; 
+    color: #ffffff; 
+    text-align: center;
+}
+
+body.billing h1.billing-title {
+    text-align: center;
+    color: #ffffff;
+}
+
+body.billing .section-billing {
+    background-color: #1b263b; 
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 8px;
+    border: 1px solid #0f3460;
+    width: 60%; 
+}
+
+body.billing .total-fines p {
+    font-size: 2em;
+    font-weight: bold;
+    color: #e63946;
+}
+
+body.billing table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #ffffff;
+    margin-top: 15px;
+    text-align: center; 
+}
+
+body.billing th, body.billing td {
+    padding: 10px;
+    border: 1px solid #ffffff;
+    text-align: center; 
+}
+
+body.billing th {
+    background-color: #1f4068;
+    color: #ffffff;
+}
+
+body.billing form label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+    color: #ffffff;
+    text-align: left; 
+}
+
+body.billing form input,
+body.billing form select,
+body.billing form button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid #ffffff;
+    background-color: #0d1b2a;
+    color: #ffffff;
+}
+
+body.billing form button {
+    background-color: #e63946;
+    color: #000000;
+    border: none;
+    margin-top: 15px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+body.billing form button:hover {
+    background-color: #d62828;
+}
+
+/* ===== Report Section ===== */
+body.report {
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background-color: #0b1d51; /* خلفية زرقاء غامقة */
+    color: #fff;
+    line-height: 1.5;
+    margin: 0;
+    padding: 0;
+}
+
+body.report .container-report {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+body.report .reports-header {
+    text-align: center;
+    padding: 2rem 1rem;
+}
+
+body.report .site-title {
+    font-size: 2rem;
+    margin: 0 0 0.5rem 0;
+}
+
+body.report .lead {
+    font-size: 1rem;
+    color: #ccc;
+}
+
+body.report .actions-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 1rem 0;
+    justify-content: center; 
+}
+
+body.report .report-btn {
+    flex: 0 1 220px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    padding: 1rem;
+    background-color: #c0392b;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+
+body.report .report-btn:hover {
+    background-color: #e74c3c;
+}
+
+body.report .btn-icon {
+    font-size: 1.6rem;
+}
+
+body.report .btn-text {
+    font-weight: 600;
+    margin-top: 0.25rem;
+    text-align: center;
+}
+
+body.report .btn-sub {
+    font-size: 0.85rem;
+    color: #f0f0f0;
+    margin-top: 0.25rem;
+    text-align: center;
+}
+
+body.report .filters-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: center; 
+    margin: 1rem 0;
+}
+
+body.report .filters-form label {
+    font-size: 0.85rem;
+}
+
+body.report .filters-form input {
+    padding: 0.4rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+body.report .btn.small {
+    padding: 0.45rem 0.6rem;
+    border-radius: 6px;
+    border: none;
+    background-color: #c0392b;
+    color: #fff;
+    cursor: pointer;
+}
+
+body.report .btn.small:hover {
+    background-color: #e74c3c;
+}
+
+body.report .report-preview {
+    border-top: 1px dashed #fff3;
+    padding-top: 1rem;
+    margin-top: 1rem;
+    text-align: center; 
+}
+
+body.report .preview-title {
+    margin: 0 0 0.5rem 0;
+}
+
+body.report .muted {
+    color: #ccc;
+}
+
+body.report .site-footer {
+    text-align: center;
+    padding: 1rem;
+    border-top: 1px solid #fff3;
+    margin-top: 2rem;
+}
+
+body.report .visually-hidden {
+    position: absolute !important;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+    clip: rect(1px, 1px, 1px, 1px);
+    white-space: nowrap;
+}
+
+.borrow-page {
+    font-family: Arial, sans-serif;
+    background: #0b1e39;  
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+
+.borrow-container {
+    width: 450px;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+
+.borrow-container h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #0b1e39;
+}
+
+
+.borrow-container label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 6px;
+    color: red;  
+}
+
+
+.borrow-container input,
+.borrow-container select {
+    width: 100%;
+    padding: 16px;  
+    border: 1px solid #c8d3e0;
+    border-radius: 8px;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+
+.row {
+    display: flex;
+    gap: 10px;  
+}
+
+.row .input-group {
+    flex: 1;  /
+}
+
+
+.borrow-button {
+    width: 100%;
+    background: #d62828; 
+    color: white;
+    border: none;
+    padding: 16px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.borrow-button:hover {
+    background: #b71c1c;
+}
+
+.borrow-page {
+    font-family: Arial, sans-serif;
+    background: #0b1e39; 
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+
+.borrow-container {
+    width: 450px;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+
+.borrow-container h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #0b1e39;
+}
+
+
+.borrow-container label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 6px;
+    color: red;  
+}
+
+
+.borrow-container input,
+.borrow-container select {
+    width: 100%;
+    padding: 16px; 
+    border: 1px solid #c8d3e0;
+    border-radius: 8px;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+.borrow-container input:focus,
+.borrow-container select:focus {
+    border-color: #274a78;
+}
+
+
+.row {
+    display: flex;
+    gap: 10px;  }
+
+.row .input-group,
+.row button {
+    flex: 1; 
+}
+
+
+.borrow-button {
+    background: #d62828; 
+    color: white;
+    border: none;
+    padding: 16px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.borrow-button:hover {
+    background: #b71c1c;
+}

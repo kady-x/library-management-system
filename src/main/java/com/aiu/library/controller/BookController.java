@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import com.aiu.library.service.BookService;
 import com.aiu.library.model.Book;
 import java.util.List;
@@ -27,6 +28,11 @@ public class BookController {
     @GetMapping
     public List<Book> getAllBooks() {
         return service.getAllBooks();
+    }
+
+    @GetMapping("/search")
+    public List<Book> searchBooks(@RequestParam String query) {
+        return service.searchBooks(query);
     }
 
     @GetMapping("/{id}")

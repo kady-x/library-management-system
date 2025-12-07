@@ -1,11 +1,14 @@
-async function loadBooks() {
-    const response = await fetch("http://localhost:8080/api/members");
-    const members = await response.json();
+const pathParts = window.location.pathname.split('/');
+const memberId = pathParts[pathParts.length - 1];
+
+async function loadMember() {
+    const response = await fetch(`http://localhost:8080/api/members/${memberId}`);
+    const member = await response.json();
 
     const table = document.getElementById("memberTable");
     table.innerHTML = "";
 
-    const rows = members.map(member => `
+    const rows = `
         <tr>
             <td>${member.memberId}</td>
             <td>${member.name}</td>
@@ -15,9 +18,9 @@ async function loadBooks() {
                 <button onclick="deleteMember(${member.memberId})">Delete</button>
             </td>
         </tr>
-    `).join("");
+    `;
 
     table.innerHTML = rows;
 }
 
-loadBooks();
+loadMember();

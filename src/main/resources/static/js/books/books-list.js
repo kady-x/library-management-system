@@ -1,5 +1,9 @@
-async function loadBooks() {
-    const response = await fetch("http://localhost:8080/api/books");
+async function loadBooks(query = null) {
+    let url = "http://localhost:8080/api/books";
+    if (query) {
+        url = `http://localhost:8080/api/books/search?query=${encodeURIComponent(query)}`;
+    }
+    const response = await fetch(url);
     const books = await response.json();
 
     const table = document.getElementById("bookTable");
@@ -23,19 +27,14 @@ async function loadBooks() {
     table.innerHTML = rows;
 }
 
-function deleteBook(id) {
-    if (confirm("Are you sure you want to delete this book?")) {
-        fetch(`http://localhost:8080/api/books/${id}`, {
-            method: "DELETE"
-        }).then(response => {
-            if (response.ok) { 
-                alert("Book deleted successfully");
-                loadBooks();
-            } else {
-                alert("Failed to delete book");
-            }
-        });
-    }
-}
+document.getElementById("searchBtn").addEventListener("click", () => {
+    const query = document.getElementById("searchQuery").value.trim();
+    loadBooks(query || null);
+});
+
+document.getElementById("showAllBtn").addEventListener("click", () => {
+    document.getElementById("searchQuery").value = "";
+    loadBooks();
+});
 
 loadBooks();

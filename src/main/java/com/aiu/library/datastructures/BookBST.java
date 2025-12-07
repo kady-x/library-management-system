@@ -73,6 +73,19 @@ public class BookBST {
         return books;
     }
 
+    public List<Book> searchBooks(String query) {
+        List<Book> results = new ArrayList<>();
+        String normalized = query == null ? null : query.trim();
+        if (normalized == null || normalized.isEmpty()) {
+            return getAllBooks();
+        }
+        if (root == null) {
+            return results;
+        }
+        root.searchByQuery(normalized, results);
+        return results;
+    }
+
     public void inOrderTraversal(BookNode node, List<Book> books) {
         if (node != null) {
             inOrderTraversal(node.left, books);

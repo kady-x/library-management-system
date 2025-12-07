@@ -43,4 +43,10 @@ public class PagesController {
         return "pages/members/list";
     }
 
+    @GetMapping("/waitinglist")
+    public String showWaitingListPage(Model model) {
+        model.addAttribute("currentPage", "waitinglist");
+        return "pages/waitinglist/list";
+    }
+
 }
