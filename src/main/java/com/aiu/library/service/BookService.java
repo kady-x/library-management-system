@@ -36,14 +36,6 @@ public class BookService {
         bookRepository.update(existing);
     }
 
-    public Book getBookDetails(Integer id) {
-        return bookRepository.findById(id);
-    }
-
-    public void deleteBook(Integer id) {
-        bookRepository.deleteById(id);
-    }
-
     public List<Book> getAllBooks() {
         return bookRepository.findAll();
     }
@@ -52,4 +44,7 @@ public class BookService {
         return bookRepository.findById(id);
     }
 
+    public void deleteBook(Integer id) {
+        bookRepository.deleteById(id);
+    }
 }

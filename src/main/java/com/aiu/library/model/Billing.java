@@ -1,10 +1,23 @@
+<<<<<<< HEAD
 //
+=======
+>>>>>>> 04729fb8a1955cfaf27e62931dbd4c83b169ca81
 package com.aiu.library.model;
 
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.persistence.Id;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+<<<<<<< HEAD
+=======
+@Entity
+@Table(name = "billings")
+>>>>>>> 04729fb8a1955cfaf27e62931dbd4c83b169ca81
 public class Billing {
 
     private Long memberID;

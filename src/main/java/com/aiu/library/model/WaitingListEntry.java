@@ -1,5 +1,15 @@
 
 package com.aiu.library.model;
+<<<<<<< HEAD
+=======
+
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.persistence.Id;
+>>>>>>> 04729fb8a1955cfaf27e62931dbd4c83b169ca81
 
 import java.time.LocalDate;
 

@@ -37,4 +37,10 @@ public class PagesController {
         return "pages/borrow/borrow";
     }
 
+    @GetMapping("/members")
+    public String showMembersPage(Model model) {
+        model.addAttribute("currentPage", "members");
+        return "pages/members/list";
+    }
+
 }

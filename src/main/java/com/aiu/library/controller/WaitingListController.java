@@ -15,7 +15,7 @@ public class WaitingListController {
     private WaitingListService waitingListService;
 
     @PostMapping("/join/{bookId}/{memberId}")
-    public String join(@PathVariable Long bookId, @PathVariable Long memberId, Model model) {
+    public String join(@PathVariable Long bookId, @PathVariable int memberId, Model model) {
         String message = waitingListService.joinWaitingList(bookId, memberId);
         model.addAttribute("message", message);
         return "waiting-result";

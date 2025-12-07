@@ -1,45 +1,48 @@
 package com.aiu.library.service;
 
+import com.aiu.library.repository.MemberRepository;
+import org.springframework.stereotype.Service;
+import com.aiu.library.model.Member;
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
-import com.aiu.library.model.Member;
-import com.aiu.library.repository.MemberRepository;
 @Service
 public class MemberService {
-    private MemberRepository repo = new MemberRepository();
 
-    // Register a new member
-    public Member registerMember(Member m) {
-        if (m.getMemberId() == 0) {
-            m.setMemberId(MemberRepository.generateNextId());
-        } else if (repo.findById(m.getMemberId()) != null) {
+    private final MemberRepository memberRepository;
+
+    public MemberService(MemberRepository memberRepository){
+        this.memberRepository = memberRepository;
+    }
+
+    public void registerMember(Member member) {
+        if (member.getMemberId() == null) {
+            member.setMemberId(memberRepository.generateNextId());
+        } else if (memberRepository.findById(member.getMemberId()) != null) {
             throw new RuntimeException("Member ID already exists.");
         }
-        repo.save(m);
-        return m;
+        memberRepository.insert(member);
+    }
+    
+    public void updateMember(Integer id, Member updated) {
+        Member existing = memberRepository.findById(id);
+        if (existing == null) throw new RuntimeException("Member not found.");
+
+        existing.setName(updated.getName());
+        existing.setContactInfo(updated.getContactInfo());
+        existing.setBorrowedBooks(updated.getBorrowedBooks());
+        existing.setMembershipDate(updated.getMembershipDate());
+        memberRepository.update(existing);
     }
 
-    // Get member by ID
     public Member getMemberById(int id) {
-        return repo.findById(id);
+        return memberRepository.findById(id);
     }
 
-    // Get all members
     public List<Member> getAllMembers() {
-        return repo.findAll();
+        return memberRepository.findAll();
     }
 
-    // Update contact info of a member
-    public boolean updateContact(int id, String newContact) {
-        Member m = repo.findById(id);
-
-        if (m != null) {
-            m.setContactInfo(newContact);
-            return true;
-        } else {
-            return false;
-        }
+    public void deleteMember(Integer id) {
+        memberRepository.deleteById(id);
     }
 }

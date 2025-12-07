@@ -1,70 +1,94 @@
 package com.aiu.library.datastructures;
 
+import com.aiu.library.model.Member;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.aiu.library.model.Book;
 import com.aiu.library.model.Member;
 
 public class MemberBST {
-    class Node {
-        Member data;
-        Node left, right;
+    private MemberNode root;
 
-        Node(Member data) {
-            this.data = data;
-        }
+    public MemberBST(){
+        this.root = null;
     }
 
-    private Node root;
-    public void insert(Member m) {
-        root = insertRec(root, m);
-    }
-
-    private Node insertRec(Node root, Member m) {
-
-        if (root == null) {
-            root = new Node(m);
-            return root;
-        }
-
-        if (m.getMemberId() < root.data.getMemberId()) {
-            root.left = insertRec(root.left, m);
-        } else if (m.getMemberId() > root.data.getMemberId()) {
-            root.right = insertRec(root.right, m);
-        }
-
+    public MemberNode getRoot(){
         return root;
     }
 
-    public Member search(int id) {
-        Node node = searchRec(root, id);
-        return (node != null) ? node.data : null;
+    public void addMember(Member member) {
+        if (root == null) {
+            root = new MemberNode(member);
+        } else {
+            root.insert(member);
+        }
     }
 
-    private Node searchRec(Node root, int id) {
-        if (root == null || root.data.getMemberId() == id) {
-            return root;
-        }
-
-        if (id < root.data.getMemberId()) {
-            return searchRec(root.left, id);
-        }
-
-        return searchRec(root.right, id);
-    }
-    public List<Member> listMembers() {
-        List<Member> list = new ArrayList<>();
-        inorderRec(root, list);
-        return list;
+    public void updateMemberInfo(Member updatedMember) {
+        delete(updatedMember.getMemberId());
+        addMember(updatedMember);
     }
 
-    private void inorderRec(Node root, List<Member> list) {
-        if (root != null) {
-            inorderRec(root.left, list);
-            list.add(root.data);
-            inorderRec(root.right, list);
+    public void delete(Integer id) {
+        root = deleteRec(root, id);
+    }
+
+    private MemberNode deleteRec(MemberNode node, Integer id) {
+        if (node == null) return null;
+
+        if (id < node.data.getMemberId()) {
+            node.left = deleteRec(node.left, id);
+        } else if (id > node.data.getMemberId()) {
+            node.right = deleteRec(node.right, id);
+        } else {
+            if (node.left == null) return node.right;
+            if (node.right == null) return node.left;
+
+            MemberNode min = findMin(node.right);
+            node.data = min.data;
+            node.right = deleteRec(node.right, min.data.getMemberId());
         }
+
+        return node;
+    }
+    
+    private MemberNode findMin(MemberNode node) {
+        while (node.left != null) node = node.left;
+        return node;
+    }
+
+    public Member searchByID(Integer id) {
+        if (root == null) return null;
+        return root.searchById(id);
+    }
+
+    public Member searchByName(String name) {
+        if (root == null) return null;
+        return root.searchByName(name);
+    }
+
+    public List<Member> getAllMembers() {
+        List<Member> members = new ArrayList<>();
+        if (root != null)
+            root.getAllMembers(members);
+        return members;
+    }
+
+    public void inOrderTraversal(MemberNode node, List<Member> members) {
+        if (node != null) {
+            inOrderTraversal(node.left, members);
+            members.add(node.data);
+            inOrderTraversal(node.right, members);
+        }
+    }
+
+    public Integer findMaxId(MemberNode node) {
+        if (node == null) return null;
+        while (node.right != null) {
+            node = node.right;
+        }
+        return node.data.getMemberId();
     }
 
     public Book getName() {
