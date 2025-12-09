@@ -1,41 +1,44 @@
-
 package com.aiu.library.model;
 
-import java.time.LocalDate;
-
-import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import jakarta.persistence.Id;
 
 @Entity
-@Table(name = "waitinglist")
+@Table(name = "waiting_list")
 public class WaitingListEntry {
-
     
     @Id
-    private final int waitinglistID;
-    private final int memberId;
-    private final String memberName;
-    private final LocalDate addedDate;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
+    @ManyToOne
+    private Book book;
 
-    public WaitingListEntry(int waitinglistID, int memberId, String memberName) {
-        this.waitinglistID = waitinglistID;
-        this.memberId = memberId;
-        this.memberName = memberName;
-        this.addedDate = LocalDate.now();
+    @ManyToOne
+    private Member member;
+
+    public WaitingListEntry() {}
+
+    public WaitingListEntry(Long id, Book book, Member member) {
+        this.id = id;
+        this.book = book;
+        this.member = member;
     }
 
-    public int getMemberId() { return memberId; }
-    public String getMemberName() { return memberName; }
-    public LocalDate getAddedDate() { return addedDate; }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    @Override
-    public String toString() {
-        return memberName + " (ID: " + memberId + ") - Joined: " + addedDate;
-    }
+    public Book getBook() { return book; }
+    public void setBook(Book book) { this.book = book; }
+
+    public Member getMember() { return member; }
+    public void setMember(Member member) { this.member = member; }
 }
+
 
 
 

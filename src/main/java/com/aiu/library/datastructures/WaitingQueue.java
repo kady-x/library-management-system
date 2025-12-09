@@ -1,36 +1,81 @@
-// src/main/java/com/aiu/library/datastructure/WaitingQueue.java
 package com.aiu.library.datastructures;
 
 import com.aiu.library.model.WaitingListEntry;
-import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Simple FIFO queue for WaitingListEntry used by repository/service code.
+ */
 public class WaitingQueue {
-    private final List<WaitingListEntry> queue = new ArrayList<>();
 
-    public void enqueue(WaitingListEntry entry) {
-        queue.add(entry);
-    }
+	private final LinkedList<WaitingListEntry> list = new LinkedList<>();
 
-    public WaitingListEntry dequeue() {
-        if (queue.isEmpty()) return null;
-        return queue.remove(0);
-    }
+	public WaitingQueue() {}
 
-    public WaitingListEntry peek() {
-        return queue.isEmpty() ? null : queue.get(0);
-    }
+	public void enqueue(WaitingListEntry entry) {
+		if (entry == null) return;
+		list.addLast(entry);
+	}
 
-    public int size() {
-        return queue.size();
-    }
+	public WaitingListEntry dequeue() {
+		return list.isEmpty() ? null : list.removeFirst();
+	}
 
-    public boolean isEmpty() {
-        return queue.isEmpty();
-    }
+	public WaitingListEntry peek() {
+		return list.peekFirst();
+	}
 
-    public List<WaitingListEntry> getAll() {
-        return new ArrayList<>(queue);
-    }
+	public boolean isEmpty() {
+		return list.isEmpty();
+	}
+
+	public int size() {
+		return list.size();
+	}
+
+	public List<WaitingListEntry> toList() {
+		return new LinkedList<>(list);
+	}
+
+	public boolean removeById(Long id) {
+		if (id == null) return false;
+		Iterator<WaitingListEntry> it = list.iterator();
+		while (it.hasNext()) {
+			WaitingListEntry e = it.next();
+			if (e != null && id.equals(e.getId())) {
+				it.remove();
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public int removeAllByMemberId(Integer memberId) {
+		if (memberId == null) return 0;
+		int removed = 0;
+		Iterator<WaitingListEntry> it = list.iterator();
+		while (it.hasNext()) {
+			WaitingListEntry e = it.next();
+			if (e != null && e.getMember() != null && memberId.equals(e.getMember().getMemberId())) {
+				it.remove();
+				removed++;
+			}
+		}
+		return removed;
+	}
+
+	public List<WaitingListEntry> findByBookId(Integer bookId) {
+		LinkedList<WaitingListEntry> out = new LinkedList<>();
+		if (bookId == null) return out;
+		for (WaitingListEntry e : list) {
+			if (e != null && e.getBook() != null && bookId.equals(e.getBook().getBookID())) {
+				out.add(e);
+			}
+		}
+		return out;
+	}
 }
+
    

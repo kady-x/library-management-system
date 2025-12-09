@@ -4,8 +4,6 @@ import com.aiu.library.model.Member;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.aiu.library.model.Member;
-
 public class MemberBST {
     private MemberNode root;
 
