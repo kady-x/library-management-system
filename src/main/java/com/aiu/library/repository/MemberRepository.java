@@ -3,7 +3,6 @@ package com.aiu.library.repository;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.springframework.stereotype.Repository;
 import com.aiu.library.datastructures.MemberBST;
-import com.aiu.library.model.Book;
 import com.aiu.library.model.Member;
 import java.util.ArrayList;
 import java.util.List;
@@ -89,4 +88,5 @@ public class MemberRepository {
         memberList.inOrderTraversal(memberList.getRoot(), members);
         return members;
     }
+
 }

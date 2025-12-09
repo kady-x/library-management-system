@@ -1,31 +1,41 @@
+
 package com.aiu.library.model;
 
+import java.time.LocalDate;
+
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "waiting_list")
+@Table(name = "waitinglist")
 public class WaitingListEntry {
+
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
-    @ManyToOne
-    private Book book;
+    private final int waitinglistID;
+    private final int memberId;
+    private final String memberName;
+    private final LocalDate addedDate;
 
-    @ManyToOne
-    private Member member;
+    public WaitingListEntry(int waitinglistID, int memberId, String memberName) {
+        this.waitinglistID = waitinglistID;
+        this.memberId = memberId;
+        this.memberName = memberName;
+        this.addedDate = LocalDate.now();
+    }
 
-    public WaitingListEntry() {}
+    public int getMemberId() { return memberId; }
+    public String getMemberName() { return memberName; }
+    public LocalDate getAddedDate() { return addedDate; }
 
-    public WaitingListEntry(Long id, Book book, Member member) {
-        this.id = id;
-        this.book = book;
-        this.member = member;
+    @Override
+    public String toString() {
+        return memberName + " (ID: " + memberId + ") - Joined: " + addedDate;
     }
 }
+
+
+

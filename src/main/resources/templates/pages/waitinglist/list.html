@@ -1,81 +1,91 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Waiting List - Library</title>
-      <link rel="stylesheet" th:href="@{/css/style.css}" />
-</head>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+  </head>
 
-<body>
-    <div class="header">
-        Books Waiting List
-    </div>
+  <body>
+    <section class="body-section">
+      <div th:replace="~{fragments/sidebar :: sidebar}"></div>
 
-    <div class="table-container">
-        <table class="book-table">
+      <main>
+        <div class="header">Books Waiting List</div>
+
+        <div class="table-container">
+          <table class="book-table">
             <thead>
-                <tr>
-                    <th>Book Code</th>
-                    <th>Book Title</th>
-                    <th>Members Waiting</th>
-                    <th>Availability</th>
-                    <th>Waiting Queue</th>
-                    <th>Actions</th>
-                </tr>
+              <tr>
+                <th>Book Code</th>
+                <th>Book Title</th>
+                <th>Members Waiting</th>
+                <th>Availability</th>
+                <th>Waiting Queue</th>
+                <th>Actions</th>
+              </tr>
             </thead>
 
             <tbody>
-                <tr>
-                    <td>B1</td>
-                    <td>Book 1</td>
-                    <td>0 Members</td>
-                    <td class="available">Available</td>
-                    <td>0</td>
-                    <td>
-                        <button class="add-btn">Add</button>
-                        <button class="remove-btn">Remove</button>
-                    </td>
-                </tr>
+              <tr>
+                <td>B1</td>
+                <td>Book 1</td>
+                <td>0 Members</td>
+                <td class="available">Available</td>
+                <td>0</td>
+                <td>
+                  <button class="add-btn">Add</button>
+                  <button class="remove-btn">Remove</button>
+                </td>
+              </tr>
 
-                <tr>
-                    <td>B2</td>
-                    <td>Book 2</td>
-                    <td>5 Members</td>
-                    <td class="unavailable">Unavailable</td>
-                    <td>5</td>
-                    <td>
-                        <button class="add-btn">Add</button>
-                        <button class="remove-btn">Remove</button>
-                    </td>
-                </tr>
+              <tr>
+                <td>B2</td>
+                <td>Book 2</td>
+                <td>5 Members</td>
+                <td class="unavailable">Unavailable</td>
+                <td>5</td>
+                <td>
+                  <button class="add-btn">Add</button>
+                  <button class="remove-btn">Remove</button>
+                </td>
+              </tr>
 
-                <tr>
-                    <td>B3</td>
-                    <td>Book 3</td>
-                    <td>3 Members</td>
-                    <td class="unavailable">Unavailable</td>
-                    <td>3</td>
-                    <td>
-                        <button class="add-btn">Add</button>
-                        <button class="remove-btn">Remove</button>
-                    </td>
-                </tr>
+              <tr>
+                <td>B3</td>
+                <td>Book 3</td>
+                <td>3 Members</td>
+                <td class="unavailable">Unavailable</td>
+                <td>3</td>
+                <td>
+                  <button class="add-btn">Add</button>
+                  <button class="remove-btn">Remove</button>
+                </td>
+              </tr>
 
-                <tr>
-                    <td>B4</td>
-                    <td>Book 4</td>
-                    <td>0 Members</td>
-                    <td class="available">Available</td>
-                    <td>0</td>
-                    <td>
-                        <button class="add-btn">Add</button>
-                        <button class="remove-btn">Remove</button>
-                    </td>
-                </tr>
+              <tr>
+                <td>B4</td>
+                <td>Book 4</td>
+                <td>0 Members</td>
+                <td class="available">Available</td>
+                <td>0</td>
+                <td>
+                  <button class="add-btn">Add</button>
+                  <button class="remove-btn">Remove</button>
+                </td>
+              </tr>
             </tbody>
-        </table>
-    </div>
+          </table>
+        </div>
+      </main>
+    </section>
 
-</body>
+    <script src="/js/waitinglist/waitinglist.js"></script>
+    <script src="/js/sidebar.js"></script>
+  </body>
+<footer>
+    Library Management System Project - AIU
+</footer>
+
 </html>

@@ -59,4 +59,24 @@ public class BookNode {
         if (this.right != null)
             this.right.getAllBooks(list);
     }
+
+    public void searchByQuery(String query, List<Book> results) {
+        String lowerQuery = query.toLowerCase();
+        searchByQueryHelper(lowerQuery, results);
+    }
+
+    private void searchByQueryHelper(String lowerQuery, List<Book> results) {
+        if (this.left != null)
+            this.left.searchByQueryHelper(lowerQuery, results);
+
+        String title = this.data.getTitle();
+        String author = this.data.getAuthor();
+        if ((title != null && title.toLowerCase().contains(lowerQuery)) ||
+            (author != null && author.toLowerCase().contains(lowerQuery))) {
+            results.add(this.data);
+        }
+
+        if (this.right != null)
+            this.right.searchByQueryHelper(lowerQuery, results);
+    }
 }
