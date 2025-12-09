@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Member</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body class="add-member-page">
+
+<div class="container">
+    <h1>Add New Member</h1>
+
+    <a href="list.html" class="back-link">← Back to Members List</a>
+
+    <form class="member-form" action="list.html" method="get">
+
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" placeholder="Enter member's name" required>
+
+        <label for="contact">Contact:</label>
+        <input type="text" id="contact" name="contact" placeholder="Enter contact info" required>
+
+        <label for="membershipDate">Membership Date:</label>
+        <input type="date" id="membershipDate" name="membershipDate" required>
+
+        <div class="button-group">
+            <button type="submit" class="add-btn-member">Add Member</button>
+            <button type="reset" class="reset-btn-member">Reset</button>
+        </div>
+
+    </form>
+</div>
+
+</body>
+</html>

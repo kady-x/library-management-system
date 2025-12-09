@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Members List</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+
+<body class="body-member">
+
+<h1 class="h1-member">Members List</h1>
+
+<a href="add.html" class="add-btn-member">+ Add New Member</a>
+
+<table class="members-table-member">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Contact</th>
+            <th>Membership Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td>1</td>
+            <td>m1</td>
+            <td>012</td>
+            <td>2021-01-01</td>
+            <td><a href="details.html" class="action-link-member">View Details</a></td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="controls">
+  <input type="search" id="memberSearch" placeholder="search with name">
+</div>
+
+</body>
+</html>
