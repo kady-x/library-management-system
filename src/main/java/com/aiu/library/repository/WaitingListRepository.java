@@ -1,12 +1,13 @@
 package com.aiu.library.repository;
 
-import com.aiu.library.datastructures.WaitingQueue;
-import com.aiu.library.model.WaitingListEntry;
-import com.aiu.library.model.Book;
-import com.aiu.library.model.Member;
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import com.aiu.library.datastructures.WaitingQueue;
+import com.aiu.library.model.Book;
+import com.aiu.library.model.Member;
+import com.aiu.library.model.WaitingListEntry;
 
 @Repository
 public class WaitingListRepository {
@@ -14,8 +15,6 @@ public class WaitingListRepository {
 	private final WaitingListJpaRepository jpaRepository;
 	private final BookJpaRepository bookJpaRepository;
 	private final MemberJpaRepository memberJpaRepository;
-
-	// in-memory FIFO queue mirroring DB state after initialization
 	private final WaitingQueue queue = new WaitingQueue();
 	private volatile boolean initialized = false;
 
@@ -36,7 +35,7 @@ public class WaitingListRepository {
 		if (initialized) return;
 		List<WaitingListEntry> all = null;
 		try {
-			all = jpaRepository.findAllByOrderByIdAsc();
+			all = jpaRepository.findAllByOrderByWaitingListIDAsc();
 		} catch (Exception ex) {
 			all = jpaRepository.findAll();
 		}
@@ -53,18 +52,18 @@ public class WaitingListRepository {
 		return queue.toList();
 	}
 
-	public WaitingListEntry findById(Long id) {
+	public WaitingListEntry findById(Integer entryId) {
 		ensureInitialized();
-		if (id == null) return null;
+		if (entryId == null) return null;
 		for (WaitingListEntry e : queue.toList()) {
-			if (e != null && id.equals(e.getId())) return e;
+			if (e != null && entryId.equals(e.getWaitingListID())) return e;
 		}
 		return null;
 	}
 
-	public WaitingListEntry add(Long bookId, Integer memberId) {
+	public WaitingListEntry add(Integer bookId, Integer memberId) {
 		ensureInitialized();
-		Book book = bookJpaRepository.findById(bookId.intValue()).orElse(null);
+		Book book = bookJpaRepository.findById(bookId).orElse(null);
 		Member member = memberJpaRepository.findById(memberId).orElse(null);
 		if (book == null || member == null) return null;
 		WaitingListEntry entry = new WaitingListEntry();
@@ -75,7 +74,7 @@ public class WaitingListRepository {
 		return saved;
 	}
 
-	public void deleteById(Long id) {
+	public void deleteById(Integer id) {
 		ensureInitialized();
 		jpaRepository.deleteById(id);
 		queue.removeById(id);
@@ -88,12 +87,10 @@ public class WaitingListRepository {
 
 	public List<WaitingListEntry> findByMemberId(Integer memberId) {
 		ensureInitialized();
-		// in-memory removal/lookup
 		return jpaRepository.findByMember_MemberId(memberId);
 	}
 
 	public WaitingListEntry findNextForBook(Integer bookId) {
-		// prefer DB query for accurate next entry in concurrent scenarios
-		return jpaRepository.findFirstByBook_BookIDOrderByIdAsc(bookId);
+		return jpaRepository.findFirstByBook_BookIDOrderByWaitingListIDAsc(bookId);
 	}
 }

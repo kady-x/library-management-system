@@ -1,5 +1,8 @@
 package com.aiu.library.model;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.Id;
@@ -9,12 +12,25 @@ import jakarta.persistence.Id;
 public class Book {
     
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer bookID;
+
+    @Column(name = "title")
     private String title;
+
+    @Column(name = "author")
     private String author;
+
+    @Column(name = "genre")
     private String genre;
+
+    @Column(name = "cover_url")
     private String coverUrl;
+
+    @Column(name = "publication_year")
     private Integer publicationYear;
+
+    @Column(name = "availability_status")
     private Boolean availabilityStatus;
     
     public Book() {}

@@ -2,7 +2,9 @@ package com.aiu.library.model;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.Id;
@@ -16,11 +18,18 @@ public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer memberId;
+
+    @Column(name = "name")
     private String name ;
+
+    @Column(name = "contact_info")
     private String contactInfo;
+
+    @Column(name = "membership_date")
     private String membershipDate;
     
     @OneToMany
+    @JoinColumn(name = "borrowed_books")
     private List<Book> borrowedBooks = new ArrayList<>();
     
     public Member() {}

@@ -103,7 +103,6 @@ public class BorrowRecord {
         return book != null ? book.getBookID() : null;
     }
 
-    // Domain convenience methods (mutate state locally; persistence handled by service/repository)
     public void issueBook(Member member, Book book, int loanDays) {
         this.member = member;
         this.book = book;

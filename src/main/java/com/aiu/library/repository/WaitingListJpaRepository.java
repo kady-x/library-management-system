@@ -1,27 +1,23 @@
 package com.aiu.library.repository;
 
-import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
 import com.aiu.library.model.WaitingListEntry;
+import java.util.List;
 
 @Repository
-public interface WaitingListJpaRepository extends JpaRepository<WaitingListEntry, Long> {
+public interface WaitingListJpaRepository extends JpaRepository<WaitingListEntry, Integer> {
 
-	// Return all waiting list entries ordered by id (FIFO order)
-	List<WaitingListEntry> findAllByOrderByIdAsc();
+	// Return all waiting list entries ordered by waitingListID (FIFO order)
+	List<WaitingListEntry> findAllByOrderByWaitingListIDAsc();
 
-	// Entries for a specific book ordered by insertion (id) ascending
-	List<WaitingListEntry> findByBook_BookIDOrderByIdAsc(Integer bookId);
+	// Entries for a specific book ordered by insertion (waitingListID) ascending
+	List<WaitingListEntry> findByBook_BookIDOrderByWaitingListIDAsc(Integer bookId);
 
 	// Entries for a specific member
 	List<WaitingListEntry> findByMember_MemberId(Integer memberId);
 
 	// Get the next waiting entry for a book (oldest)
-	WaitingListEntry findFirstByBook_BookIDOrderByIdAsc(Integer bookId);
+	WaitingListEntry findFirstByBook_BookIDOrderByWaitingListIDAsc(Integer bookId);
 
 }
-    
-

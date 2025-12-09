@@ -2,6 +2,9 @@ package com.aiu.library.model;
 
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.Id;
@@ -13,19 +16,49 @@ import java.util.List;
 @Table(name = "billings")
 public class Billing {
 
-    private Long memberID;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer billingID;
+    
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member member = new Member();
+
+    @Column(name = "total_fines")
     private double totalFines = 0.0;
-    private List<String> paymentHistory = new ArrayList<>();
-    public Billing(Long memberID) {
-        this.memberID = memberID;
+
+    @Column(name = "payment_history", length = 2000)
+    private String paymentHistoryText = "";
+
+    public Billing() {}
+
+    public Billing(Member member) {
+        this.member = member;
     }
 
-    
-    public Long getMemberID() { return memberID; }
-    public double getTotalFines() { return totalFines; }
-    public List<String> getPaymentHistory() { return new ArrayList<>(paymentHistory); }
+    public Integer getMemberID() {
+        return this.member.getMemberId();
+    }
 
-    
+    public double getTotalFines() {
+        return totalFines;
+    }
+
+    public String getPaymentHistoryText() {
+        return paymentHistoryText;
+    }
+
+    public void setPaymentHistoryText(String paymentHistoryText) {
+        this.paymentHistoryText = paymentHistoryText;
+    }
+
+    public List<String> getPaymentHistory() {
+        if (paymentHistoryText == null || paymentHistoryText.isEmpty()) {
+            return new ArrayList<>();
+        }
+        return new ArrayList<>(List.of(paymentHistoryText.split(";")));
+    }
+
     public double calculateFine(LocalDate dueDate) {
         LocalDate today = LocalDate.now();
         if (today.isAfter(dueDate)) {
@@ -37,16 +70,20 @@ public class Billing {
         return 0.0;
     }
 
-    
     public void addPayment(double amount) {
         if (amount > 0) {
             totalFines -= amount;
-            if (totalFines < 0) totalFines = 0;
-            paymentHistory.add(LocalDate.now() + " → Paid: " + amount + " EGP");
+            if (totalFines < 0)
+                totalFines = 0;
+            String paymentEntry = LocalDate.now() + " → Paid: " + amount + " EGP";
+            if (paymentHistoryText == null || paymentHistoryText.isEmpty()) {
+                paymentHistoryText = paymentEntry;
+            } else {
+                paymentHistoryText += ";" + paymentEntry;
+            }
         }
     }
 
-    
     public String getPaymentStatus() {
         if (totalFines <= 0) {
             return "No outstanding fines";
@@ -55,9 +92,7 @@ public class Billing {
         }
     }
 
-
-    public Object getId() {
-    
-        throw new UnsupportedOperationException("Unimplemented method 'getId'");
+    public Integer getId() {
+        return billingID;
     }
 }

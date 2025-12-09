@@ -19,7 +19,7 @@ public class BillingController {
 
     @GetMapping("/{memberID}")
     public double calculateFine(
-            @PathVariable Long memberID,
+            @PathVariable Integer memberID,
             @RequestParam String dueDate) {
         LocalDate date = LocalDate.parse(dueDate);
         return service.calculateFine(memberID, date);
@@ -27,14 +27,14 @@ public class BillingController {
 
     @PostMapping("/{memberID}")
     public String payFine(
-            @PathVariable Long memberID,
+            @PathVariable Integer memberID,
             @RequestParam double amount) {
         service.addPayment(memberID, amount);
         return service.getPaymentStatus(memberID);
     }
 
     @GetMapping("/status/{memberID}")
-    public String getStatus(@PathVariable Long memberID) {
+    public String getStatus(@PathVariable Integer memberID) {
         return service.getPaymentStatus(memberID);
     }
 }
