@@ -60,6 +60,12 @@ public class PagesController {
         return "pages/members/details";
     }
 
+    @GetMapping("/members/billing/{id}")
+    public String showMemberBillingPage(@PathVariable("id") Integer id, Model model) {
+        model.addAttribute("memberId", id);
+        return "pages/members/billing";
+    }
+
     @GetMapping("/billing")
     public String showBillingPage(Model model) {
         model.addAttribute("currentPage", "billing");

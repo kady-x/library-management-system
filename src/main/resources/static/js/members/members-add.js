@@ -1,4 +1,3 @@
-// Enhanced form validation
 function validateMemberForm(form) {
     const name = form.name.value.trim();
     const contactInfo = form.contact.value.trim();
@@ -24,7 +23,6 @@ function validateMemberForm(form) {
         return false;
     }
 
-    // Check if membership date is not in the future
     const selectedDate = new Date(membershipDate);
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -38,13 +36,11 @@ function validateMemberForm(form) {
 }
 
 function showError(message) {
-    // Remove any existing error messages
     const existingError = document.querySelector('.error-message');
     if (existingError) {
         existingError.remove();
     }
 
-    // Create and show error message
     const errorDiv = document.createElement('div');
     errorDiv.className = 'error-message';
     errorDiv.style.cssText = `
@@ -61,7 +57,6 @@ function showError(message) {
     const form = document.getElementById("addMemberForm");
     form.parentNode.insertBefore(errorDiv, form);
 
-    // Auto-hide after 5 seconds
     setTimeout(() => {
         if (errorDiv.parentNode) {
             errorDiv.remove();
@@ -70,13 +65,11 @@ function showError(message) {
 }
 
 function showSuccess(message) {
-    // Remove any existing messages
     const existingMessage = document.querySelector('.success-message, .error-message');
     if (existingMessage) {
         existingMessage.remove();
     }
 
-    // Create and show success message
     const successDiv = document.createElement('div');
     successDiv.className = 'success-message';
     successDiv.style.cssText = `
@@ -93,7 +86,6 @@ function showSuccess(message) {
     const container = document.querySelector('.container');
     container.insertBefore(successDiv, container.firstChild);
 
-    // Auto-hide after 3 seconds
     setTimeout(() => {
         if (successDiv.parentNode) {
             successDiv.remove();
@@ -119,7 +111,6 @@ function setLoadingState(loading) {
     }
 }
 
-// Set default membership date to today
 document.addEventListener('DOMContentLoaded', () => {
     const today = new Date().toISOString().split('T')[0];
     document.getElementById('membershipDate').value = today;
@@ -130,12 +121,10 @@ document.getElementById("addMemberForm").addEventListener("submit", async (e) =>
 
     const form = e.target;
 
-    // Validate form
     if (!validateMemberForm(form)) {
         return;
     }
 
-    // Set loading state
     setLoadingState(true);
 
     const data = {
@@ -155,11 +144,9 @@ document.getElementById("addMemberForm").addEventListener("submit", async (e) =>
             showSuccess("Member added successfully!");
             form.reset();
 
-            // Reset to today's date
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('membershipDate').value = today;
 
-            // Redirect after a short delay to show success message
             setTimeout(() => {
                 window.location.href = "/members";
             }, 1500);

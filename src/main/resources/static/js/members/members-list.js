@@ -1,4 +1,4 @@
-let allMembers = []; // Store all members for filtering
+let allMembers = [];
 
 async function loadMembers() {
     try {
@@ -21,7 +21,6 @@ function updateStatistics(members) {
         totalMembersElement.textContent = members.length;
     }
 
-    // For now, consider all members as active (you can add logic to determine active status)
     if (activeMembersElement) {
         activeMembersElement.textContent = members.length;
     }
@@ -53,6 +52,7 @@ function renderMembers(members) {
                 <a href="/members/edit/${member.memberId}" class="action-link-member">Edit</a>
                 <button onclick="deleteMember(${member.memberId})" class="delete-btn">Delete</button>
                 <button onclick="viewBorrowedBooks(${member.memberId})" class="view-borrowed-btn">View Borrowed Books</button>
+                <button onclick="manageBilling(${member.memberId})" class="billing-btn">Manage Billing</button>
             </td>
         </tr>
     `).join("");
@@ -77,16 +77,15 @@ function formatDate(dateString) {
     }
 }
 
-// View borrowed books function - navigates to return book page with member filter
+function manageBilling(memberId) {
+    window.location.href = `/members/billing/${memberId}`;
+}
+
 function viewBorrowedBooks(memberId) {
-    // Store the member ID in sessionStorage for the borrow page
     sessionStorage.setItem('filterMemberId', memberId);
-    
-    // Navigate to the borrow/return page
     window.location.href = '/borrow';
 }
 
-// Search functionality
 document.getElementById("memberSearch").addEventListener("input", (e) => {
     const searchTerm = e.target.value.toLowerCase().trim();
     const clearBtn = document.getElementById("clearSearch");
@@ -104,19 +103,16 @@ document.getElementById("memberSearch").addEventListener("input", (e) => {
     }
 });
 
-// Clear search
 document.getElementById("clearSearch").addEventListener("click", () => {
     const searchInput = document.getElementById("memberSearch");
     searchInput.value = "";
     searchInput.dispatchEvent(new Event("input"));
 });
 
-// Refresh functionality
 document.getElementById("refreshBtn").addEventListener("click", () => {
     loadMembers();
 });
 
-// Load members on page load
 document.addEventListener("DOMContentLoaded", () => {
     loadMembers();
 });

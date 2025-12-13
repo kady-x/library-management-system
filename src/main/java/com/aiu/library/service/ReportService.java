@@ -35,14 +35,11 @@ public class ReportService {
 
         logger.debug("Fetching overdue books with limit {}", limit);
         try {
-            // Fetch all overdue records first
             List<BorrowRecord> overdue = borrowRecordRepository.findOverdueBooks();
             
-            // Apply sorting using Merge Sort by due date ascending
             logger.debug("Sorting {} overdue books by due date ascending using Merge Sort", overdue.size());
             List<BorrowRecord> sortedOverdue = ReportGenerator.mergeSortBorrowRecords(overdue);
             
-            // Apply limit after sorting
             List<BorrowRecord> result = sortedOverdue.stream().limit(limit).collect(Collectors.toList());
             
             logger.debug("Successfully sorted and limited to {} overdue books", result.size());
@@ -75,14 +72,11 @@ public class ReportService {
 
         logger.debug("Fetching overdue books between {} and {} with limit {}", startDate, endDate, limit);
         try {
-            // Fetch all overdue records first
             List<BorrowRecord> overdue = borrowRecordRepository.findOverdueBooks(startDate, endDate);
             
-            // Apply sorting using Merge Sort by due date ascending
             logger.debug("Sorting {} overdue books by due date ascending using Merge Sort", overdue.size());
             List<BorrowRecord> sortedOverdue = ReportGenerator.mergeSortBorrowRecords(overdue);
             
-            // Apply limit after sorting
             List<BorrowRecord> result = sortedOverdue.stream().limit(limit).collect(Collectors.toList());
             
             logger.debug("Successfully sorted and limited to {} overdue books", result.size());
@@ -118,11 +112,9 @@ public class ReportService {
                 })
                 .collect(Collectors.toList());
                 
-            // Apply sorting using Quick Sort by borrow count descending
             logger.debug("Sorting {} books by borrow count descending using Quick Sort", books.size());
             List<Map<String, Object>> sortedBooks = ReportGenerator.quickSortMostBorrowed(books);
             
-            // Apply limit after sorting
             List<Map<String, Object>> result = sortedBooks.stream().limit(limit).collect(Collectors.toList());
             
             logger.debug("Successfully sorted and limited to {} most borrowed books", result.size());
@@ -167,11 +159,9 @@ public class ReportService {
                 })
                 .collect(Collectors.toList());
                 
-            // Apply sorting using Quick Sort by borrow count descending
             logger.debug("Sorting {} books by borrow count descending using Quick Sort", books.size());
             List<Map<String, Object>> sortedBooks = ReportGenerator.quickSortMostBorrowed(books);
             
-            // Apply limit after sorting
             List<Map<String, Object>> result = sortedBooks.stream().limit(limit).collect(Collectors.toList());
             
             logger.debug("Successfully sorted and limited to {} most borrowed books", result.size());
@@ -207,11 +197,9 @@ public class ReportService {
                 })
                 .collect(Collectors.toList());
                 
-            // Apply sorting using Merge Sort by activity count descending
             logger.debug("Sorting {} members by activity count descending using Merge Sort", members.size());
             List<Map<String, Object>> sortedMembers = ReportGenerator.mergeSortMemberActivity(members);
             
-            // Apply limit after sorting
             List<Map<String, Object>> result = sortedMembers.stream().limit(limit).collect(Collectors.toList());
             
             logger.debug("Successfully sorted and limited to {} member activities", result.size());
@@ -256,11 +244,8 @@ public class ReportService {
                 })
                 .collect(Collectors.toList());
                 
-            // Apply sorting using Merge Sort by activity count descending
             logger.debug("Sorting {} members by activity count descending using Merge Sort", members.size());
             List<Map<String, Object>> sortedMembers = ReportGenerator.mergeSortMemberActivity(members);
-            
-            // Apply limit after sorting
             List<Map<String, Object>> result = sortedMembers.stream().limit(limit).collect(Collectors.toList());
             
             logger.debug("Successfully sorted and limited to {} member activities", result.size());

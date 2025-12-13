@@ -8,37 +8,22 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.aiu.library.model.Member;
+import com.aiu.library.model.MemberWithBillingRequest;
 import com.aiu.library.repository.MemberRepository;
 
-/**
- * Service class for managing library members operations.
- * Provides methods for registering, updating, retrieving, and deleting members
- * with comprehensive logging, input validation, and error handling.
- */
+
 @Service
 public class MemberService {
 
     private static final Logger logger = LoggerFactory.getLogger(MemberService.class);
     private final MemberRepository memberRepository;
+    private final BillingService billingService;
 
-    /**
-     * Constructs a MemberService with the required MemberRepository dependency.
-     *
-     * @param memberRepository the repository for member data access operations
-     */
-    public MemberService(MemberRepository memberRepository) {
+    public MemberService(MemberRepository memberRepository, BillingService billingService) {
         this.memberRepository = memberRepository;
+        this.billingService = billingService;
     }
 
-    /**
-     * Registers a new member in the library system.
-     * Validates the member data and handles any exceptions that may occur during registration.
-     *
-     * @param member the member object to be registered
-     * @return the registered member with generated ID
-     * @throws IllegalArgumentException if member data is invalid
-     * @throws RuntimeException if registration fails
-     */
     @Transactional
     public Member registerMember(Member member) {
         logger.info("Registering new member: {}", member != null ? member.getName() : "null");
@@ -64,17 +49,34 @@ public class MemberService {
         }
     }
 
-    /**
-     * Updates an existing member's information.
-     * Validates the member ID and updated data before performing the update.
-     *
-     * @param id the ID of the member to update
-     * @param updated the member object containing updated information
-     * @return the updated member object
-     * @throws IllegalArgumentException if member ID or updated data is invalid
-     * @throws IllegalStateException if member with given ID is not found
-     * @throws RuntimeException if update operation fails
-     */
+    @Transactional
+    public Member registerMemberWithBilling(MemberWithBillingRequest request) {
+        logger.info("Registering new member with billing: {}", request.getName());
+
+        if (request == null) {
+            throw new IllegalArgumentException("Request cannot be null");
+        }
+
+        Member member = new Member();
+        member.setName(request.getName());
+        member.setContactInfo(request.getContactInfo());
+        member.setMembershipDate(request.getMembershipDate());
+
+        Member savedMember = registerMember(member);
+
+        if (request.hasBillingInfo()) {
+            try {
+                initBilling(savedMember.getMemberId(), request.getTotalFines(), request.getPaymentHistoryText());
+                logger.info("Successfully initialized billing for member: {}", savedMember.getName());
+            } catch (Exception e) {
+                logger.error("Failed to initialize billing for member: {}", savedMember.getName(), e);
+
+            }
+        }
+
+        return savedMember;
+    }
+
     @Transactional
     public Member updateMember(Integer id, Member updated) {
         logger.info("Updating member with ID: {}", id);
@@ -116,13 +118,50 @@ public class MemberService {
         }
     }
 
-    /**
-     * Searches for members by name or contact information.
-     *
-     * @param query the search query string
-     * @return list of members matching the search criteria
-     * @throws RuntimeException if search fails
-     */
+    @Transactional
+    public Member updateMemberWithBilling(Integer id, MemberWithBillingRequest request) {
+        logger.info("Updating member with billing, ID: {}", id);
+
+        if (request == null) {
+            throw new IllegalArgumentException("Request cannot be null");
+        }
+
+        Member member = new Member();
+        member.setName(request.getName());
+        member.setContactInfo(request.getContactInfo());
+        member.setMembershipDate(request.getMembershipDate());
+
+        Member updatedMember = updateMember(id, member);
+
+        if (request.hasBillingInfo()) {
+            try {
+                initBilling(id, request.getTotalFines(), request.getPaymentHistoryText());
+                logger.info("Successfully updated billing for member ID: {}", id);
+            } catch (Exception e) {
+                logger.error("Failed to update billing for member ID: {}", id, e);
+            }
+        }
+
+        return updatedMember;
+    }
+
+    @Transactional
+    public void initBilling(Integer memberId, Double totalFines, String paymentHistoryText) {
+        logger.info("Initializing billing for memberId: {}, totalFines: {}", memberId, totalFines);
+
+        if (memberId == null || memberId <= 0) {
+            throw new IllegalArgumentException("Valid memberId is required");
+        }
+
+        try {
+            billingService.setBillingInfo(memberId, totalFines, paymentHistoryText);
+            logger.info("Successfully initialized/updated billing for memberId: {}", memberId);
+        } catch (Exception e) {
+            logger.error("Failed to initialize billing for memberId: {}", memberId, e);
+            throw new RuntimeException("Failed to initialize billing: " + e.getMessage(), e);
+        }
+    }
+
     public List<Member> searchMembers(String query) {
         logger.debug("Searching members with query: {}", query);
         try {
@@ -144,13 +183,6 @@ public class MemberService {
         }
     }
 
-    /**
-     * Retrieves all members from the database.
-     * Logs the operation and handles any exceptions that may occur.
-     *
-     * @return list of all members
-     * @throws RuntimeException if retrieval fails
-     */
     public List<Member> getAllMembers() {
         logger.debug("Fetching all members");
         try {
@@ -163,15 +195,6 @@ public class MemberService {
         }
     }
 
-    /**
-     * Retrieves a specific member by their ID.
-     * Validates the member ID and handles not found scenarios.
-     *
-     * @param id the ID of the member to retrieve
-     * @return the member object if found, null otherwise
-     * @throws IllegalArgumentException if member ID is invalid
-     * @throws RuntimeException if retrieval fails
-     */
     public Member getMemberById(Integer id) {
         logger.debug("Fetching member with ID: {}", id);
         try {
@@ -193,14 +216,6 @@ public class MemberService {
         }
     }
 
-    /**
-     * Deletes a member from the library system.
-     * Validates the member ID before attempting deletion.
-     *
-     * @param id the ID of the member to delete
-     * @throws IllegalArgumentException if member ID is invalid
-     * @throws RuntimeException if deletion fails
-     */
     @Transactional
     public void deleteMember(Integer id) {
         logger.info("Deleting member with ID: {}", id);

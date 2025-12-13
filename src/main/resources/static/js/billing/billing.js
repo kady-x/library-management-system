@@ -11,7 +11,7 @@ document.getElementById("payForm").addEventListener("submit", async (e) => {
     const memberId = document.getElementById("memberId").value;
     const amount = parseFloat(e.target.amount.value);
 
-    const response = await fetch(`http://localhost:8080/api/billing/${memberId}?amount=${amount}`, {
+    const response = await fetch(`/api/billing/${memberId}?amount=${amount}`, {
         method: "POST"
     });
 
@@ -27,7 +27,7 @@ document.getElementById("payForm").addEventListener("submit", async (e) => {
 
 async function loadBillingData(memberId) {
     try {
-        const response = await fetch(`http://localhost:8080/api/billing/status/${memberId}`);
+        const response = await fetch(`/api/billing/status/${memberId}`);
 
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -35,12 +35,10 @@ async function loadBillingData(memberId) {
 
         const data = await response.json();
 
-        // Display total fines
         document.getElementById("totalFinesAmount").textContent = data.totalFines.toFixed(2) + " EGP";
         document.getElementById("statusMessage").textContent = data.status;
         document.getElementById("totalFinesSection").style.display = "block";
 
-        // Display payment history
         const tbody = document.getElementById("paymentHistoryTable");
         tbody.innerHTML = "";
         if (data.paymentHistory && data.paymentHistory.length > 0) {
@@ -60,7 +58,6 @@ async function loadBillingData(memberId) {
         }
         document.getElementById("paymentHistorySection").style.display = "block";
 
-        // Show pay form
         document.getElementById("payFormSection").style.display = "block";
 
     } catch (error) {

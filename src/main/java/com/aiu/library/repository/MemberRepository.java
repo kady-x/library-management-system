@@ -52,7 +52,6 @@ public class MemberRepository {
     }
 
     public void insert(Member member) {
-        // Let JPA auto-generate the ID
         Member saved = memberJpaRepository.save(member);
         memberList.addMember(saved);
     }

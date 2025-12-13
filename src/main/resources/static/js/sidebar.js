@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const isMaximized = localStorage.getItem('sidebarMinimized') === 'false';
     if (isMaximized) {
-        sidebar.classList.remove('minimized'); // start maximized
+        sidebar.classList.remove('minimized');
         toggleBtn.textContent = '«';
     }
 

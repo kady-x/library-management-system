@@ -2,7 +2,7 @@ const pathParts = window.location.pathname.split('/');
 const bookId = pathParts[pathParts.length - 1];
 
 async function loadBook(id) {
-    const response = await fetch(`http://localhost:8080/api/books/${id}`);
+    const response = await fetch(`/api/books/${id}`);
 
     if (!response.ok) {
         alert("Book not found");

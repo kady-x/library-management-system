@@ -1,9 +1,7 @@
-// State management
 let currentReport = 'overdue';
 let currentData = [];
 let sortConfig = { field: '', order: 'asc' };
 
-// Sort options for each report type
 const sortOptions = {
     'overdue': [
         { value: '', label: 'Default' },
@@ -27,32 +25,27 @@ const sortOptions = {
     ]
 };
 
-// Initialize page
 document.addEventListener('DOMContentLoaded', () => {
     initializeEventListeners();
     updateSortOptions();
     loadReport('overdue');
 });
 
-// Set up event listeners
 function initializeEventListeners() {
-    // Report tab buttons
     document.querySelectorAll('.report-tab').forEach(tab => {
         tab.addEventListener('click', (e) => {
             const reportType = e.target.dataset.report;
             setActiveTab(reportType);
-            currentReport = reportType; // Update currentReport before calling updateSortOptions
+            currentReport = reportType;
             updateSortOptions();
             loadReport(reportType);
         });
     });
 
-    // Apply filters button
     document.getElementById('applyFiltersBtn').addEventListener('click', () => {
         loadReport(currentReport);
     });
 
-    // Clear filters button
     document.getElementById('clearFiltersBtn').addEventListener('click', () => {
         document.getElementById('startDate').value = '';
         document.getElementById('endDate').value = '';
@@ -60,14 +53,12 @@ function initializeEventListeners() {
         loadReport(currentReport);
     });
 
-    // Sort button
     document.getElementById('applySortBtn').addEventListener('click', () => {
         sortConfig.field = document.getElementById('sortBy').value;
         sortConfig.order = document.getElementById('sortOrder').value;
         sortAndDisplayData();
     });
 
-    // Clickable table headers for sorting
     document.querySelectorAll('th[data-sort]').forEach(th => {
         th.style.cursor = 'pointer';
         th.addEventListener('click', () => {
@@ -85,7 +76,6 @@ function initializeEventListeners() {
     });
 }
 
-// Set active tab styling
 function setActiveTab(reportType) {
     document.querySelectorAll('.report-tab').forEach(tab => {
         tab.classList.remove('active');
@@ -95,7 +85,6 @@ function setActiveTab(reportType) {
     });
 }
 
-// Update sort dropdown options based on report type
 function updateSortOptions() {
     const sortBySelect = document.getElementById('sortBy');
     sortBySelect.innerHTML = sortOptions[currentReport]
@@ -106,7 +95,6 @@ function updateSortOptions() {
     document.getElementById('sortOrder').value = 'asc';
 }
 
-// Load report data from API
 async function loadReport(reportType) {
     currentReport = reportType;
     showLoading(true);
@@ -117,7 +105,6 @@ async function loadReport(reportType) {
     const endDate = document.getElementById('endDate').value;
     const limit = document.getElementById('limitResults').value;
 
-    // Comment 1: Use overdue-filtered endpoint when overdue report has date filters
     let url;
     if (reportType === 'overdue' && (startDate || endDate)) {
         url = '/api/reports/overdue-filtered';
@@ -127,13 +114,11 @@ async function loadReport(reportType) {
     
     const params = new URLSearchParams();
 
-    // For overdue-filtered, pass startDate and endDate if present
     if (url.includes('/overdue-filtered')) {
         if (startDate) params.append('startDate', startDate);
         if (endDate) params.append('endDate', endDate);
         if (limit) params.append('limit', limit);
     } else {
-        // For other endpoints, pass all parameters
         if (startDate) params.append('startDate', startDate);
         if (endDate) params.append('endDate', endDate);
         if (limit) params.append('limit', limit);
@@ -166,7 +151,6 @@ async function loadReport(reportType) {
     }
 }
 
-// Display report based on type
 function displayReport(reportType, data) {
     if (reportType === 'overdue') {
         displayOverdueBooks(data);
@@ -177,7 +161,6 @@ function displayReport(reportType, data) {
     }
 }
 
-// Display overdue books
 function displayOverdueBooks(books) {
     const table = document.getElementById('overdueTable');
     const tbody = document.getElementById('overdueTableBody');
@@ -198,7 +181,6 @@ function displayOverdueBooks(books) {
     table.style.display = 'table';
 }
 
-// Display most borrowed books
 function displayMostBorrowedBooks(data) {
     const table = document.getElementById('mostBorrowedTable');
     const tbody = document.getElementById('mostBorrowedTableBody');
@@ -214,7 +196,6 @@ function displayMostBorrowedBooks(data) {
     table.style.display = 'table';
 }
 
-// Display member activity
 function displayMemberActivity(data) {
     const table = document.getElementById('memberActivityTable');
     const tbody = document.getElementById('memberActivityTableBody');
@@ -230,7 +211,6 @@ function displayMemberActivity(data) {
     table.style.display = 'table';
 }
 
-// Sort and redisplay data
 function sortAndDisplayData() {
     if (!sortConfig.field || currentData.length === 0) {
         displayReport(currentReport, currentData);
@@ -240,7 +220,6 @@ function sortAndDisplayData() {
     const sortedData = [...currentData].sort((a, b) => {
         let valueA, valueB;
 
-        // Get values based on report type and field
         switch (currentReport) {
             case 'overdue':
                 valueA = getOverdueValue(a, sortConfig.field);
@@ -258,11 +237,9 @@ function sortAndDisplayData() {
                 return 0;
         }
 
-        // Handle null/undefined
         if (valueA == null) return 1;
         if (valueB == null) return -1;
 
-        // Compare values
         let comparison = 0;
         if (typeof valueA === 'number' && typeof valueB === 'number') {
             comparison = valueA - valueB;
@@ -276,7 +253,6 @@ function sortAndDisplayData() {
     displayReport(currentReport, sortedData);
 }
 
-// Get value from overdue record for sorting
 function getOverdueValue(record, field) {
     switch (field) {
         case 'title': return record.book?.title;
@@ -288,7 +264,6 @@ function getOverdueValue(record, field) {
     }
 }
 
-// Get value from most borrowed record for sorting
 function getMostBorrowedValue(record, field) {
     switch (field) {
         case 'title': return record.title;
@@ -298,7 +273,6 @@ function getMostBorrowedValue(record, field) {
     }
 }
 
-// Get value from member activity record for sorting
 function getMemberActivityValue(record, field) {
     switch (field) {
         case 'memberName': return record.memberName;
@@ -308,7 +282,6 @@ function getMemberActivityValue(record, field) {
     }
 }
 
-// Helper functions
 function calculateDaysOverdue(dueDateStr) {
     if (!dueDateStr) return 0;
     const dueDate = new Date(dueDateStr);
@@ -337,7 +310,6 @@ function getReportTitle(type) {
     }
 }
 
-// UI helper functions
 function showLoading(show) {
     document.getElementById('loadingIndicator').style.display = show ? 'block' : 'none';
 }

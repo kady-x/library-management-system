@@ -32,12 +32,9 @@ async function populateDropdowns() {
     
     const bookSelect = document.getElementById("bookSelect");
     const memberSelect = document.getElementById("memberSelect");
-    
-    // Clear existing options except the first placeholder
     bookSelect.innerHTML = '<option value="">Select Book</option>';
     memberSelect.innerHTML = '<option value="">Select Member</option>';
     
-    // Populate books dropdown
     books.forEach(book => {
         const option = document.createElement('option');
         option.value = book.bookID;
@@ -45,7 +42,6 @@ async function populateDropdowns() {
         bookSelect.appendChild(option);
     });
     
-    // Populate members dropdown
     members.forEach(member => {
         const option = document.createElement('option');
         option.value = member.memberId;
@@ -111,10 +107,9 @@ async function addToWaitingList() {
         });
 
         if (response.ok) {
-            // Reset dropdowns to placeholder options
             bookSelect.value = '';
             memberSelect.value = '';
-            loadWaitingList(); // Refresh the list
+            loadWaitingList();
             showSuccessMessage('Successfully added to waiting list');
         } else {
             const error = await response.text();
@@ -127,28 +122,22 @@ async function addToWaitingList() {
 }
 
 function showSuccessMessage(message) {
-    // Create a temporary success notification
     const notification = document.createElement('div');
     notification.className = 'success-notification';
     notification.textContent = message;
     
     document.body.appendChild(notification);
-    
-    // Remove notification after 3 seconds
     setTimeout(() => {
         notification.remove();
     }, 3000);
 }
 
 function showErrorMessage(message) {
-    // Create a temporary error notification
     const notification = document.createElement('div');
     notification.className = 'error-notification';
     notification.textContent = message;
     
     document.body.appendChild(notification);
-    
-    // Remove notification after 5 seconds
     setTimeout(() => {
         notification.remove();
     }, 5000);
@@ -165,7 +154,7 @@ async function removeFromWaitingList(entryId) {
         });
 
         if (response.ok) {
-            loadWaitingList(); // Refresh the list
+            loadWaitingList();
             showSuccessMessage('Successfully removed from waiting list');
         } else {
             const error = await response.text();
@@ -177,14 +166,8 @@ async function removeFromWaitingList(entryId) {
     }
 }
 
-// Initialize the page
 document.addEventListener('DOMContentLoaded', async function() {
-    // Populate dropdowns first
     await populateDropdowns();
-    
-    // Load waiting list entries
     loadWaitingList();
-    
-    // Add event listener for add button
     document.getElementById("addBtn").addEventListener("click", addToWaitingList);
 });

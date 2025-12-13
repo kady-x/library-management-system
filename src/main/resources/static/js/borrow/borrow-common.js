@@ -1,12 +1,7 @@
-// Shared module for borrow functionality - provides common utilities for both borrow.js and return.js
-
-// Enhanced message display function - shared across borrow pages
 function showMessage(message, type = "info") {
-    // Remove existing messages
     const existingMessages = document.querySelectorAll('.message');
     existingMessages.forEach(msg => msg.remove());
 
-    // Create new message element
     const messageDiv = document.createElement('div');
     messageDiv.className = `message message-${type}`;
     messageDiv.style.cssText = `
@@ -20,16 +15,13 @@ function showMessage(message, type = "info") {
     `;
     messageDiv.textContent = message;
 
-    // Insert message at the top of the main content
     const main = document.querySelector('main');
     if (main) {
         main.insertBefore(messageDiv, main.firstChild);
     } else {
-        // Fallback if main element not found
         document.body.insertBefore(messageDiv, document.body.firstChild);
     }
 
-    // Auto-remove after 5 seconds
     setTimeout(() => {
         if (messageDiv.parentNode) {
             messageDiv.remove();
@@ -37,10 +29,8 @@ function showMessage(message, type = "info") {
     }, 5000);
 }
 
-// Global variable to store all borrow records - shared across modules
 let allBorrowRecords = [];
 
-// Shared function to load active borrow records - used by both pages
 async function loadActiveBorrowsShared() {
     try {
         const response = await fetch("/api/borrow/records");
@@ -55,17 +45,14 @@ async function loadActiveBorrowsShared() {
 
         const borrowRecords = await response.json();
 
-        // Ensure borrowRecords is an array
         if (!Array.isArray(borrowRecords)) {
             console.error("Expected array but got:", typeof borrowRecords, borrowRecords);
             showMessage("Invalid response format from server.", "error");
             return;
         }
 
-        // Store all records globally for filtering
         allBorrowRecords = borrowRecords;
 
-        // Return records for use by specific page implementations
         return borrowRecords;
     } catch (error) {
         console.error("Failed to load active borrow records:", error);
@@ -74,19 +61,16 @@ async function loadActiveBorrowsShared() {
     }
 }
 
-// Shared function to select borrow record
 function selectBorrowRecordShared(borrowId) {
     document.getElementById("borrowRecordSelect").value = borrowId;
     document.getElementById("borrowRecordId").value = borrowId;
     
-    // Scroll to form
     const borrowContainer = document.querySelector(".borrow-container");
     if (borrowContainer) {
         borrowContainer.scrollIntoView({ behavior: "smooth" });
     }
 }
 
-// Shared renew function: shows modal, posts renew request, updates records and notifies pages
 async function renewBorrowRecord(borrowId) {
     const record = allBorrowRecords.find(r => r.borrowID === borrowId);
     if (!record) {
@@ -139,7 +123,6 @@ async function renewBorrowRecord(borrowId) {
             const res = await fetch(`/api/borrow/renew/${borrowId}?days=${days}`, { method: 'POST' });
             if (res.ok) {
                 showMessage('Renewed!', 'success');
-                // Refresh shared records and notify pages to re-render
                 await loadActiveBorrowsShared();
                 document.dispatchEvent(new CustomEvent('borrowRecordsUpdated'));
             } else {
@@ -154,7 +137,6 @@ async function renewBorrowRecord(borrowId) {
     };
 }
 
-// Export functions for use in other modules (if using modules)
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
         showMessage,

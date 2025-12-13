@@ -172,7 +172,6 @@ function calculateDaysOverdue(dueDateStr) {
 
 loadBooks();
 
-// Event listeners for report buttons
 document.querySelectorAll('.report-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
         e.preventDefault();
@@ -181,7 +180,6 @@ document.querySelectorAll('.report-btn').forEach(btn => {
     });
 });
 
-// Date range filtering
 document.getElementById('report-filters').addEventListener('submit', (e) => {
     e.preventDefault();
     const startDate = document.getElementById('startDate').value;

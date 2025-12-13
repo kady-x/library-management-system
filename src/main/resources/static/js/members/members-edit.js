@@ -1,7 +1,6 @@
 const pathParts = window.location.pathname.split('/');
 const memberId = pathParts[pathParts.length - 1];
 
-// Enhanced form validation
 function validateMemberForm(form) {
     const name = form.name.value.trim();
     const contactInfo = form.contactInfo.value.trim();
@@ -27,7 +26,6 @@ function validateMemberForm(form) {
         return false;
     }
 
-    // Check if membership date is not in the future
     const selectedDate = new Date(membershipDate);
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -41,13 +39,11 @@ function validateMemberForm(form) {
 }
 
 function showError(message) {
-    // Remove any existing error messages
     const existingError = document.querySelector('.error-message');
     if (existingError) {
         existingError.remove();
     }
 
-    // Create and show error message
     const errorDiv = document.createElement('div');
     errorDiv.className = 'error-message';
     errorDiv.style.cssText = `
@@ -64,7 +60,6 @@ function showError(message) {
     const form = document.getElementById("editMemberForm");
     form.parentNode.insertBefore(errorDiv, form);
 
-    // Auto-hide after 5 seconds
     setTimeout(() => {
         if (errorDiv.parentNode) {
             errorDiv.remove();
@@ -73,13 +68,11 @@ function showError(message) {
 }
 
 function showSuccess(message) {
-    // Remove any existing messages
     const existingMessage = document.querySelector('.success-message, .error-message');
     if (existingMessage) {
         existingMessage.remove();
     }
 
-    // Create and show success message
     const successDiv = document.createElement('div');
     successDiv.className = 'success-message';
     successDiv.style.cssText = `
@@ -96,7 +89,6 @@ function showSuccess(message) {
     const container = document.querySelector('.container');
     container.insertBefore(successDiv, container.firstChild);
 
-    // Auto-hide after 3 seconds
     setTimeout(() => {
         if (successDiv.parentNode) {
             successDiv.remove();
@@ -130,7 +122,6 @@ async function loadMember(id) {
 
         if (!response.ok) {
             showError("Member not found or failed to load");
-            // Redirect back to members list after a delay
             setTimeout(() => {
                 window.location.href = "/members";
             }, 2000);
@@ -139,14 +130,11 @@ async function loadMember(id) {
 
         const member = await response.json();
 
-        // Format date for input field (YYYY-MM-DD format)
         let membershipDate = member.membershipDate;
         if (membershipDate && membershipDate !== "0001-01-01") {
-            // Ensure date is in YYYY-MM-DD format for input[type="date"]
             const date = new Date(membershipDate);
             membershipDate = date.toISOString().split('T')[0];
         } else {
-            // Set to today if no valid date
             membershipDate = new Date().toISOString().split('T')[0];
         }
 
@@ -155,7 +143,6 @@ async function loadMember(id) {
         document.querySelector("input[name='contactInfo']").value = member.contactInfo;
         document.querySelector("input[name='membershipDate']").value = membershipDate;
 
-        // Show success message for loading
         showSuccess("Member data loaded successfully");
 
     } catch (error) {
@@ -181,19 +168,16 @@ document.getElementById("editMemberForm").addEventListener("submit", async (e) =
     const form = e.target;
     const id = document.getElementById("memberID").value;
 
-    // Validate form
     if (!validateMemberForm(form)) {
         return;
     }
 
-    // Check if data has actually changed
     const currentData = {
         name: form.name.value.trim(),
         contactInfo: form.contactInfo.value.trim(),
         membershipDate: form.membershipDate.value
     };
 
-    // Set loading state
     setLoadingState(true);
 
     try {
@@ -206,7 +190,6 @@ document.getElementById("editMemberForm").addEventListener("submit", async (e) =
         if (response.ok) {
             showSuccess("Member updated successfully!");
 
-            // Redirect after a short delay to show success message
             setTimeout(() => {
                 window.location.href = "/members";
             }, 1500);

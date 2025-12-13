@@ -53,22 +53,18 @@ public class BorrowService {
                 throw new IllegalStateException("Book with ID " + bookId + " not found");
             }
 
-            // Check if book is available (has quantity > 0, default to 1 if null)
             int availableQuantity = book.getQuantity() != null ? book.getQuantity() : 1;
             if (availableQuantity <= 0) {
                 throw new IllegalStateException("Book with ID " + bookId + " is not available for borrowing");
             }
 
-            // Create and configure the borrow record
             BorrowRecord record = new BorrowRecord();
             int effectiveLoanDays = loanDays <= 0 ? DEFAULT_LOAN_DAYS : loanDays;
             record.issueBook(member, book, effectiveLoanDays);
 
-            // Persist the borrow record
             BorrowRecord saved = borrowRecordRepository.insert(record);
             logger.debug("Borrow record created with ID: {}", saved.getBorrowID());
 
-            // Update book quantity and availability
             int currentQuantity = book.getQuantity() != null ? book.getQuantity() : 1;
             int newQuantity = currentQuantity - 1;
             book.setQuantity(newQuantity);
@@ -101,7 +97,6 @@ public class BorrowService {
                 throw new IllegalStateException("Borrow record with ID " + borrowId + " not found");
             }
 
-            // Comment 4: Treat already-returned books as an error for better API clarity
             if (Boolean.TRUE.equals(record.getReturnStatus())) {
                 throw new IllegalStateException("Borrow record with ID " + borrowId + " has already been returned");
             }
@@ -111,7 +106,6 @@ public class BorrowService {
 
             Book book = record.getBook();
             if (book != null) {
-                // Increment quantity and update availability
                 int newQuantity = (book.getQuantity() != null ? book.getQuantity() : 0) + 1;
                 book.setQuantity(newQuantity);
                 book.setAvailabilityStatus(true);

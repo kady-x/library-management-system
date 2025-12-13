@@ -107,6 +107,36 @@ public class BillingService {
         }
     }
 
+    @Transactional
+    public void setBillingInfo(Integer memberID, Double totalFines, String paymentHistoryText) {
+        logger.info("Setting billing info for memberId: {}, totalFines: {}", memberID, totalFines);
+
+        if (memberID == null || memberID <= 0) {
+            throw new IllegalArgumentException("Valid memberId is required");
+        }
+
+        try {
+            Billing billing = getOrCreateBilling(memberID);
+            
+            if (totalFines != null && totalFines >= 0) {
+                billing.setTotalFines(totalFines);
+                logger.info("Updated total fines to {} for memberId: {}", totalFines, memberID);
+            }
+            
+            if (paymentHistoryText != null) {
+                billing.setPaymentHistoryText(paymentHistoryText);
+                logger.info("Updated payment history for memberId: {}", memberID);
+            }
+            
+            Billing saved = billingRepository.save(billing);
+            logger.info("Successfully saved billing info for memberId: {}, new total: {}", 
+                       memberID, saved.getTotalFines());
+        } catch (Exception e) {
+            logger.error("Error setting billing info for memberId: {}", memberID, e);
+            throw new RuntimeException("Failed to set billing info", e);
+        }
+    }
+
     private Billing getOrCreateBilling(Integer memberId) {
         Billing billing = billingRepository.findByMemberID(memberId);
         if (billing == null) {

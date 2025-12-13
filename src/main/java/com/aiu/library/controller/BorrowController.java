@@ -73,7 +73,6 @@ public class BorrowController {
             logger.info("POST /api/borrow/issue - Issuing book ID: {} to member ID: {}", 
                        request.getBookId(), request.getMemberId());
             
-            // Validate required fields
             if (request.getMemberId() == null) {
                 logger.warn("Missing required field: memberId");
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST)
@@ -196,8 +195,7 @@ public class BorrowController {
                     .body("Failed to retrieve member active borrow records: " + e.getMessage());
         }
     }
-
-    // DTO class for issue request
+    
     public static class IssueBookRequest {
         private Integer memberId;
         private Integer bookId;

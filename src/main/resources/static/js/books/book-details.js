@@ -2,7 +2,7 @@ const pathParts = window.location.pathname.split('/');
 const bookID = pathParts[pathParts.length - 1];
 
 async function loadBook() {
-    const response = await fetch(`http://localhost:8080/api/books/${bookID}`);
+    const response = await fetch(`/api/books/${bookID}`);
     const book = await response.json();
     const table = document.getElementById("bookTable");
     table.innerHTML = "";

@@ -10,23 +10,9 @@ import org.slf4j.LoggerFactory;
 
 import com.aiu.library.model.BorrowRecord;
 
-/**
- * Utility class for generating reports with custom sorting algorithms.
- * Provides Merge Sort and Quick Sort implementations for different data types.
- * All sorting operations have O(n log n) time complexity.
- */
 public class ReportGenerator {
-
     private static final Logger logger = LoggerFactory.getLogger(ReportGenerator.class);
 
-    /**
-     * Sorts a list of BorrowRecord objects by due date in ascending order using Merge Sort.
-     * Time Complexity: O(n log n), Space Complexity: O(n)
-     *
-     * @param records the list of BorrowRecord objects to sort
-     * @return sorted list of BorrowRecord objects; returns an empty list if input is empty
-     * @throws IllegalArgumentException if records is null
-     */
     public static List<BorrowRecord> mergeSortBorrowRecords(List<BorrowRecord> records) {
         if (records == null) {
             logger.warn("Cannot sort null list of BorrowRecords");
@@ -51,14 +37,6 @@ public class ReportGenerator {
         return sortedRecords;
     }
 
-    /**
-     * Sorts a list of BorrowRecord objects by due date in ascending order using Quick Sort.
-     * Time Complexity: O(n log n) average, O(n²) worst case, Space Complexity: O(log n)
-     *
-     * @param records the list of BorrowRecord objects to sort
-     * @return sorted list of BorrowRecord objects; returns an empty list if input is empty
-     * @throws IllegalArgumentException if records is null
-     */
     public static List<BorrowRecord> quickSortBorrowRecords(List<BorrowRecord> records) {
         if (records == null) {
             logger.warn("Cannot sort null list of BorrowRecords");
@@ -83,14 +61,6 @@ public class ReportGenerator {
         return sortedRecords;
     }
 
-    /**
-     * Sorts a list of book maps by borrow count in descending order using Merge Sort.
-     * Time Complexity: O(n log n), Space Complexity: O(n)
-     *
-     * @param books the list of maps containing book data with "borrowCount" key
-     * @return sorted list of book maps; returns an empty list if input is empty
-     * @throws IllegalArgumentException if books is null
-     */
     public static List<Map<String, Object>> mergeSortMostBorrowed(List<Map<String, Object>> books) {
         if (books == null) {
             logger.warn("Cannot sort null list of books");
@@ -116,14 +86,6 @@ public class ReportGenerator {
         return sortedBooks;
     }
 
-    /**
-     * Sorts a list of book maps by borrow count in descending order using Quick Sort.
-     * Time Complexity: O(n log n) average, O(n²) worst case, Space Complexity: O(log n)
-     *
-     * @param books the list of maps containing book data with "borrowCount" key
-     * @return sorted list of book maps; returns an empty list if input is empty
-     * @throws IllegalArgumentException if books is null
-     */
     public static List<Map<String, Object>> quickSortMostBorrowed(List<Map<String, Object>> books) {
         if (books == null) {
             logger.warn("Cannot sort null list of books");
@@ -149,14 +111,6 @@ public class ReportGenerator {
         return sortedBooks;
     }
 
-    /**
-     * Sorts a list of member maps by activity count in descending order using Merge Sort.
-     * Time Complexity: O(n log n), Space Complexity: O(n)
-     *
-     * @param members the list of maps containing member data with "activityCount" key
-     * @return sorted list of member maps; returns an empty list if input is empty
-     * @throws IllegalArgumentException if members is null
-     */
     public static List<Map<String, Object>> mergeSortMemberActivity(List<Map<String, Object>> members) {
         if (members == null) {
             logger.warn("Cannot sort null list of members");
@@ -182,14 +136,6 @@ public class ReportGenerator {
         return sortedMembers;
     }
 
-    /**
-     * Sorts a list of member maps by activity count in descending order using Quick Sort.
-     * Time Complexity: O(n log n) average, O(n²) worst case, Space Complexity: O(log n)
-     *
-     * @param members the list of maps containing member data with "activityCount" key
-     * @return sorted list of member maps; returns an empty list if input is empty
-     * @throws IllegalArgumentException if members is null
-     */
     public static List<Map<String, Object>> quickSortMemberActivity(List<Map<String, Object>> members) {
         if (members == null) {
             logger.warn("Cannot sort null list of members");
@@ -215,10 +161,6 @@ public class ReportGenerator {
         return sortedMembers;
     }
 
-    /**
-     * Generic Merge Sort implementation.
-     * Time Complexity: O(n log n), Space Complexity: O(n)
-     */
     private static <T> void mergeSort(List<T> list, int left, int right, Comparator<T> comparator) {
         if (left < right) {
             int middle = left + (right - left) / 2;
@@ -230,10 +172,6 @@ public class ReportGenerator {
         }
     }
 
-    /**
-     * Merge helper method for Merge Sort.
-     */
-    @SuppressWarnings("unchecked")
     private static <T> void merge(List<T> list, int left, int middle, int right, Comparator<T> comparator) {
         int n1 = middle - left + 1;
         int n2 = right - middle;
@@ -275,10 +213,6 @@ public class ReportGenerator {
         }
     }
 
-    /**
-     * Generic Quick Sort implementation.
-     * Time Complexity: O(n log n) average, O(n²) worst case, Space Complexity: O(log n)
-     */
     private static <T> void quickSort(List<T> list, int low, int high, Comparator<T> comparator) {
         if (low < high) {
             int pi = partition(list, low, high, comparator);
@@ -288,9 +222,6 @@ public class ReportGenerator {
         }
     }
 
-    /**
-     * Partition helper method for Quick Sort.
-     */
     private static <T> int partition(List<T> list, int low, int high, Comparator<T> comparator) {
         T pivot = list.get(high);
         int i = (low - 1);
@@ -306,9 +237,6 @@ public class ReportGenerator {
         return i + 1;
     }
 
-    /**
-     * Swap helper method.
-     */
     private static <T> void swap(List<T> list, int i, int j) {
         T temp = list.get(i);
         list.set(i, list.get(j));
