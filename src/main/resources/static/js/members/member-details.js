@@ -2,7 +2,7 @@ const pathParts = window.location.pathname.split('/');
 const memberId = pathParts[pathParts.length - 1];
 
 async function loadMember() {
-    const response = await fetch(`http://localhost:8080/api/members/${memberId}`);
+    const response = await fetch(`/api/members/${memberId}`);
     const member = await response.json();
 
     const table = document.getElementById("memberTable");

@@ -43,6 +43,35 @@ public class PagesController {
         return "pages/members/list";
     }
 
+    @GetMapping("/members/add")
+    public String showAddMemberPage() {
+        return "pages/members/add";
+    }
+
+    @GetMapping("/members/edit/{id}")
+    public String showEditMemberPage(@PathVariable("id") Integer id, Model model) {
+        model.addAttribute("memberId", id);
+        return "pages/members/edit";
+    }
+
+    @GetMapping("/members/details/{id}")
+    public String showMemberDetailsPage(@PathVariable("id") Integer id, Model model) {
+        model.addAttribute("memberId", id);
+        return "pages/members/details";
+    }
+
+    @GetMapping("/billing")
+    public String showBillingPage(Model model) {
+        model.addAttribute("currentPage", "billing");
+        return "pages/billing/billing";
+    }
+
+    @GetMapping("/reports")
+    public String showReportsPage(Model model) {
+        model.addAttribute("currentPage", "reports");
+        return "pages/reports/index";
+    }
+
     @GetMapping("/waitinglist")
     public String showWaitingListPage(Model model) {
         model.addAttribute("currentPage", "waitinglist");

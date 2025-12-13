@@ -1,59 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Billing Page</title>
-   <link rel="stylesheet" th:href="@{/css/style.css}" />
-</head>
-<body>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <script src="/js/billing/billing.js" defer></script>
+  </head>
+  <body>
+    <section class="body-section">
+      <div th:replace="~{fragments/sidebar :: sidebar}"></div>
 
-    <h1>Billing </h1>
+      <main>
+        <h1>Billing</h1>
 
-  
-    <div class="section total-fines">
-        <h2>Total Fines</h2>
-        <p>$20.00</p>
-    </div>
+        <div class="section member-selection">
+          <h2>Select Member</h2>
+          <form id="memberForm">
+            <label for="memberId">Member ID:</label>
+            <input
+              type="number"
+              id="memberId"
+              name="memberId"
+              placeholder="Enter member ID"
+              min="1"
+              required
+            />
+            <button type="submit">Load Billing</button>
+          </form>
+        </div>
 
-    <div class="section payment-history">
-        <h2>Payment History</h2>
-        <table>
+        <div
+          class="section total-fines"
+          id="totalFinesSection"
+          style="display: none"
+        >
+          <h2>Total Fines</h2>
+          <p id="totalFinesAmount">$0.00</p>
+          <p id="statusMessage"></p>
+        </div>
+
+        <div
+          class="section payment-history"
+          id="paymentHistorySection"
+          style="display: none"
+        >
+          <h2>Payment History</h2>
+          <table>
             <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Amount</th>
-                    <th>Status</th>
-                </tr>
+              <tr>
+                <th>Date & Details</th>
+              </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>2025-12-01</td>
-                    <td>$10.00</td>
-                    <td>Paid</td>
-                </tr>
-                <tr>
-                    <td>2025-11-15</td>
-                    <td>$5.00</td>
-                    <td>Paid</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+            <tbody id="paymentHistoryTable"></tbody>
+          </table>
+        </div>
 
- 
-    <div class="section pay-form">
-        <h2>Pay Fine</h2>
-        <form>
+        <div class="section pay-form" id="payFormSection" style="display: none">
+          <h2>Pay Fine</h2>
+          <form id="payForm">
             <label for="amount">Amount:</label>
-            <input type="number" id="amount" placeholder="Enter amount" min="1" step="0.01" required>
-
-            <label for="method">Payment Method:</label>
-            <input type="text" id="method" placeholder="Credit Card, PayPal, etc." required>
+            <input
+              type="number"
+              id="amount"
+              name="amount"
+              placeholder="Enter amount"
+              min="0.01"
+              step="0.01"
+              required
+            />
 
             <button type="submit">Pay</button>
-        </form>
-    </div>
+          </form>
+        </div>
+      </main>
+    </section>
+    <footer>Library Management System Project - AIU</footer>
 
-</body>
+    <script src="/js/sidebar.js"></script>
+  </body>
 </html>

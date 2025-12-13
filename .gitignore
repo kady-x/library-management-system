@@ -19,7 +19,6 @@ target/
 .vscode/
 build/
 target/
-.class
 !**/src/main/**/build/
 !**/src/test/**/build/
 

@@ -1,17 +1,24 @@
 package com.aiu.library.controller;
 
-import com.aiu.library.model.WaitingListEntry;
-import com.aiu.library.service.WaitingListService;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import com.aiu.library.model.WaitingListEntry;
+import com.aiu.library.service.WaitingListService;
 
 @RestController
-@RequestMapping("/waiting-list")
+@RequestMapping("/api/waiting-list")
 public class WaitingListController {
 
 	private static final Logger logger = LoggerFactory.getLogger(WaitingListController.class);
@@ -24,7 +31,7 @@ public class WaitingListController {
 	@GetMapping
 	public ResponseEntity<?> list() {
 		try {
-			logger.info("GET /waiting-list - Fetching all entries");
+			logger.info("GET /api/waiting-list - Fetching all entries");
 			List<WaitingListEntry> list = waitingListService.getAll();
 			logger.info("Successfully retrieved {} waiting list entries", list.size());
 			return ResponseEntity.ok(list);
@@ -39,7 +46,7 @@ public class WaitingListController {
 	public ResponseEntity<?> add(@PathVariable Long bookId,
 								 @RequestParam(required = true) Integer memberId) {
 		try {
-			logger.info("POST /waiting-list/add/{} - Adding entry for memberId: {}", bookId, memberId);
+			logger.info("POST /api/waiting-list/add/{} - Adding entry for memberId: {}", bookId, memberId);
 			WaitingListEntry entry = waitingListService.add(bookId, memberId);
 			logger.info("Successfully added waiting list entry with ID: {}", entry.getId());
 			return ResponseEntity.status(HttpStatus.CREATED).body(entry);
@@ -61,7 +68,7 @@ public class WaitingListController {
 	@DeleteMapping("/remove/{entryId}")
 	public ResponseEntity<?> remove(@PathVariable Long entryId) {
 		try {
-			logger.info("DELETE /waiting-list/remove/{} - Removing entry", entryId);
+			logger.info("DELETE /api/waiting-list/remove/{} - Removing entry", entryId);
 			boolean success = waitingListService.remove(entryId);
 			if (success) {
 				logger.info("Successfully removed waiting list entry with ID: {}", entryId);

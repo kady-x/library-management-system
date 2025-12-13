@@ -1,67 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" th:href="@{/css/style.css}" />
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Library Reports</title>
-  <link rel="stylesheet" th:href="@{/css/style.css}" />
-  <meta name="description" content="Library reports dashboard — overdue books, most borrowed books, and member activity." />
 </head>
 <body>
-  <header class="reports-header">
-    <div class="container">
-      <h1 class="site-title">Library Reports</h1>
-      <p class="lead">Quick Reports: Overdue, Popular, Members.</p>
-    </div>
-  </header>
+  <section class="body-section">
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
 
-  <main class="container" role="main">
-    <section aria-labelledby="reports-actions" class="reports-actions">
-      <h2 id="reports-actions" class="visually-hidden">Report Actions</h2>
+    <main>
+      <h1>Library Reports</h1>
 
-      <div class="card actions-grid">
-        <a href="overdue.html" class="report-btn">
-          <span class="btn-icon">📚</span>
-          <span class="btn-text">Overdue Books</span>
-          <small class="btn-sub">View all overdue loans</small>
-        </a>
-
-        <a href="most-borrowed.html" class="report-btn">
-          <span class="btn-icon">🔥</span>
-          <span class="btn-text">Most Borrowed</span>
-          <small class="btn-sub">Top borrowed titles</small>
-        </a>
-
-        <a href="member-activity.html" class="report-btn">
-          <span class="btn-icon">👥</span>
-          <span class="btn-text">Member Activity</span>
-          <small class="btn-sub">Recent member transactions</small>
-        </a>
+      <!-- Report Type Selection -->
+      <div class="report-tabs">
+        <button id="overdueTab" class="report-tab active" data-report="overdue">
+          📚 Overdue Books
+        </button>
+        <button id="mostBorrowedTab" class="report-tab" data-report="most-borrowed">
+          🔥 Most Borrowed
+        </button>
+        <button id="memberActivityTab" class="report-tab" data-report="member-activity">
+          👥 Member Activity
+        </button>
       </div>
-    </section>
 
-    <section class="filters">
-      <form id="report-filters" class="filters-form" action="#" method="GET" aria-label="Filter reports">
-        <label for="startDate">Start date</label>
-        <input type="text" id="startDate" name="startDate" placeholder="DD/MM/YYYY">
+      <!-- Filters Section -->
+      <div class="search-section">
+        <label for="startDate">Start Date:</label>
+        <input type="date" id="startDate" />
+        
+        <label for="endDate">End Date:</label>
+        <input type="date" id="endDate" />
+        
+        <label for="limitResults">Limit:</label>
+        <select id="limitResults">
+          <option value="">All</option>
+          <option value="5">5</option>
+          <option value="10" selected>10</option>
+          <option value="25">25</option>
+          <option value="50">50</option>
+        </select>
 
-        <label for="endDate">End date</label>
-        <input type="text" id="endDate" name="endDate" placeholder="DD/MM/YYYY">
+        <button id="applyFiltersBtn" class="submit-btn">Apply Filters</button>
+        <button id="clearFiltersBtn">Clear Filters</button>
+      </div>
 
-        <button type="submit" class="btn small">Apply</button>
-      </form>
-    </section>
+      <!-- Sorting Controls -->
+      <div class="sort-section">
+        <label for="sortBy">Sort By:</label>
+        <select id="sortBy">
+          <option value="">Default</option>
+        </select>
+        
+        <label for="sortOrder">Order:</label>
+        <select id="sortOrder">
+          <option value="asc">Ascending</option>
+          <option value="desc">Descending</option>
+        </select>
+        
+        <button id="applySortBtn" class="submit-btn">Sort</button>
+      </div>
 
-    <section id="report-preview" class="report-preview" aria-live="polite">
-      <h3 class="preview-title">Report preview</h3>
-      <p class="muted">Select a report to see a quick preview here.</p>
-    </section>
-  </main>
+      <!-- Report Summary -->
+      <div id="reportSummary" class="report-summary">
+        <span id="reportTitle">Select a report to view</span>
+        <span id="recordCount" class="record-count"></span>
+      </div>
 
-  <footer class="site-footer">
-    <div class="container">
-      <small>&copy; 2025 AIU — Reports Dashboard</small>
-    </div>
-  </footer>
+      <!-- Loading Indicator -->
+      <div id="loadingIndicator" class="loading" style="display: none;">
+        Loading report data...
+      </div>
+
+      <!-- Error Message -->
+      <div id="errorMessage" class="error-message" style="display: none;"></div>
+
+      <!-- Overdue Books Table -->
+      <table id="overdueTable" style="display: none;">
+        <thead>
+          <tr>
+            <th data-sort="title">Book Title</th>
+            <th data-sort="author">Author</th>
+            <th data-sort="member">Member</th>
+            <th data-sort="dueDate">Due Date</th>
+            <th data-sort="daysOverdue">Days Overdue</th>
+          </tr>
+        </thead>
+        <tbody id="overdueTableBody"></tbody>
+      </table>
+
+      <!-- Most Borrowed Books Table -->
+      <table id="mostBorrowedTable" style="display: none;">
+        <thead>
+          <tr>
+            <th data-sort="title">Book Title</th>
+            <th data-sort="author">Author</th>
+            <th data-sort="borrowCount">Borrow Count</th>
+          </tr>
+        </thead>
+        <tbody id="mostBorrowedTableBody"></tbody>
+      </table>
+
+      <!-- Member Activity Table -->
+      <table id="memberActivityTable" style="display: none;">
+        <thead>
+          <tr>
+            <th data-sort="memberName">Member Name</th>
+            <th data-sort="memberEmail">Email</th>
+            <th data-sort="activityCount">Activity Count</th>
+          </tr>
+        </thead>
+        <tbody id="memberActivityTableBody"></tbody>
+      </table>
+
+      <!-- No Data Message -->
+      <div id="noDataMessage" class="no-data" style="display: none;">
+        No data available for the selected report and filters.
+      </div>
+    </main>
+  </section>
+
+  <script src="/js/reports/reports.js"></script>
+  <script src="/js/sidebar.js"></script>
 </body>
+
+<footer>Library Management System Project - AIU</footer>
 </html>

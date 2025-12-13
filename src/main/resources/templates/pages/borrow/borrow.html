@@ -1,44 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Borrow Book</title>
     <link rel="stylesheet" th:href="@{/css/style.css}" />
   </head>
+
   <body>
     <section class="body-section">
       <div th:replace="~{fragments/sidebar :: sidebar}"></div>
 
-      <main class="borrow-page">
-        <div class="borrow-container">
-          <h2>Borrow Book</h2>
+      <main>
+        <!-- Navigation Tabs -->
+        <div class="borrow-tabs">
+          <button id="borrowTab" class="tab-button active">Borrow Book</button>
+          <button id="returnTab" class="tab-button">Return Book</button>
+        </div>
 
-          <form>
-            <div class="row">
-              <div class="input-group">
-                <label>Member ID</label>
-                <input type="text" placeholder="Enter Member ID" />
+        <!-- Borrow Section -->
+        <div id="borrowSection" class="tab-content active">
+          <div class="borrow-container">
+            <h2>Borrow Book</h2>
+
+            <form id="borrowForm">
+              <div class="row">
+                <div class="input-group">
+                  <label for="memberSelect">Select Member</label>
+                  <select id="memberSelect" name="memberSelect" required>
+                    <option value="">Choose a member...</option>
+                    <!-- Members will be loaded here -->
+                  </select>
+                  <input type="hidden" id="memberId" name="memberId" />
+                </div>
+                <div class="input-group">
+                  <label for="bookSelect">Select Book</label>
+                  <select id="bookSelect" name="bookSelect" required>
+                    <option value="">Choose a book...</option>
+                    <!-- Books will be loaded here -->
+                  </select>
+                  <input type="hidden" id="bookId" name="bookId" />
+                </div>
               </div>
+
               <div class="input-group">
-                <label>Book ID</label>
-                <input type="text" placeholder="Enter Book ID" />
+                <label for="loanDays">Loan Days</label>
+                <input type="number" id="loanDays" name="loanDays" placeholder="Enter loan days (default: 14)" value="14" required />
+              </div>
+
+              <button type="submit" class="borrow-button">Issue Book</button>
+            </form>
+          </div>
+
+          <!-- Available Books Section -->
+          <div class="available-books-section">
+            <h3>Available Books</h3>
+            <table id="availableBooksTable" class="book-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Title</th>
+                  <th>Author</th>
+                  <th>Genre</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Available books will be loaded here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Return Section -->
+        <div id="returnSection" class="tab-content">
+          <div class="borrow-container">
+            <h2>Return Book</h2>
+
+            <!-- Member Filter Section -->
+            <div class="filter-section">
+              <h3>Filter by Member</h3>
+              <div class="row">
+                <div class="input-group">
+                  <label for="memberFilterSelect">Select Member to Filter</label>
+                  <select id="memberFilterSelect" name="memberFilterSelect">
+                    <option value="">All Members</option>
+                    <!-- Members will be loaded here -->
+                  </select>
+                </div>
+                <button type="button" id="clearFilterBtn" class="borrow-button">Clear Filter</button>
               </div>
             </div>
 
-            <label>Borrow Date</label>
-            <input type="date" />
+            <form id="returnForm">
+              <div class="input-group">
+                <label for="borrowRecordSelect">Select Borrow Record to Return</label>
+                <select id="borrowRecordSelect" name="borrowRecordSelect" required>
+                  <option value="">Choose a borrow record...</option>
+                  <!-- Borrow records will be loaded here -->
+                </select>
+                <input type="hidden" id="borrowRecordId" name="borrowRecordId" />
+              </div>
 
-            <label>Due Date</label>
-            <input type="date" />
+              <div class="row">
+                <button type="submit" class="borrow-button">Return Book</button>
+                <button type="reset" class="borrow-button">Reset</button>
+              </div>
+            </form>
+          </div>
 
-            <button type="submit" class="borrow-button">Issue Book</button>
-          </form>
+          <!-- Active Borrow Records Section -->
+          <div class="active-borrows-section">
+            <h3>Active Borrow Records</h3>
+            <div id="filterStatus" class="filter-status"></div>
+            <table id="activeBorrowsTable" class="borrow-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Member</th>
+                  <th>Book</th>
+                  <th>Borrow Date</th>
+                  <th>Due Date</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Active borrow records will be loaded here -->
+              </tbody>
+            </table>
+          </div>
         </div>
       </main>
     </section>
 
     <script src="/js/sidebar.js"></script>
+    <script src="/js/borrow/borrow-common.js"></script>
+    <script src="/js/borrow/borrow.js"></script>
   </body>
 <footer>
     Library Management System Project - AIU

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Member</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+  </head>
+
+  <body class="add-member-page">
+    <div class="container">
+      <div class="form-header">
+        <h1>Edit Member</h1>
+        <p class="form-description">Update member information and settings</p>
+      </div>
+
+      <nav class="form-navigation">
+        <a href="/members" class="back-link">
+          <span class="nav-icon">←</span>
+          Back to Members List
+        </a>
+      </nav>
+
+      <form id="editMemberForm" class="member-form">
+        <input type="hidden" id="memberID" name="memberID" />
+
+        <div class="form-section">
+          <h2 class="section-title">Member Information</h2>
+
+          <div class="form-group">
+            <label for="name" class="form-label">
+              Full Name <span class="required">*</span>
+            </label>
+            <div class="input-wrapper">
+              <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Enter member's full name"
+                maxlength="100"
+                required
+              />
+              <span class="input-icon">👤</span>
+            </div>
+            <small class="field-help">Update the member's complete name</small>
+          </div>
+
+          <div class="form-group">
+            <label for="contactInfo" class="form-label">
+              Contact Information <span class="required">*</span>
+            </label>
+            <div class="input-wrapper">
+              <input
+                type="text"
+                id="contactInfo"
+                name="contactInfo"
+                placeholder="Email or phone number"
+                maxlength="255"
+                required
+              />
+              <span class="input-icon">📞</span>
+            </div>
+            <small class="field-help">Primary contact method for library communications</small>
+          </div>
+
+          <div class="form-group">
+            <label for="membershipDate" class="form-label">
+              Membership Date <span class="required">*</span>
+            </label>
+            <div class="input-wrapper">
+              <input
+                type="date"
+                id="membershipDate"
+                name="membershipDate"
+                required
+              />
+              <span class="input-icon">📅</span>
+            </div>
+            <small class="field-help">Date when membership became active (cannot be in the future)</small>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <div class="button-group">
+            <button type="submit" class="add-btn-member primary-action">
+              <span class="btn-icon">💾</span>
+              Update Member
+            </button>
+            <button type="reset" class="reset-btn-member secondary-action">
+              <span class="btn-icon">↻</span>
+              Reset Changes
+            </button>
+          </div>
+
+          <div class="form-footer">
+            <p class="form-note">
+              <span class="required">*</span> Required fields
+            </p>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <script src="/js/members/members-edit.js"></script>
+  </body>
+</html>

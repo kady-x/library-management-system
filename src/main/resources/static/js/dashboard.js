@@ -1,3 +1,5 @@
+let currentReport = null;
+
 async function fadeInBooks() {
     const cards = document.querySelectorAll('.card-animation');
 
@@ -7,7 +9,7 @@ async function fadeInBooks() {
 }
 
 async function loadBooks() {
-    const response = await fetch("http://localhost:8080/api/books");
+    const response = await fetch("/api/books");
     const books = await response.json();
 
     const cards = document.getElementById("book-grid");
@@ -34,4 +36,157 @@ async function loadBooks() {
     fadeInBooks()
 }
 
+async function loadReport(reportType, startDate = null, endDate = null) {
+    currentReport = reportType;
+    let url = `/api/reports/${reportType}`;
+    const params = new URLSearchParams();
+    if (startDate) params.append('startDate', startDate);
+    if (endDate) params.append('endDate', endDate);
+    if (params.toString()) url += '?' + params.toString();
+
+    const response = await fetch(url);
+    const data = await response.json();
+
+    const preview = document.getElementById("report-preview");
+    preview.innerHTML = `<h3 class="preview-title">${getReportTitle(reportType)}</h3>`;
+
+    if (reportType === 'overdue') {
+        displayOverdueBooks(data);
+    } else if (reportType === 'most-borrowed') {
+        displayMostBorrowedBooks(data);
+    } else if (reportType === 'member-activity') {
+        displayMemberActivity(data);
+    }
+}
+
+function getReportTitle(type) {
+    switch(type) {
+        case 'overdue': return 'Overdue Books';
+        case 'most-borrowed': return 'Most Borrowed Books';
+        case 'member-activity': return 'Member Activity';
+        default: return 'Report';
+    }
+}
+
+function displayOverdueBooks(books) {
+    const preview = document.getElementById("report-preview");
+    if (books.length === 0) {
+        preview.innerHTML += '<p class="muted">No overdue books.</p>';
+        return;
+    }
+
+    const table = document.createElement('table');
+    table.className = 'report-table';
+    table.innerHTML = `
+        <thead>
+            <tr>
+                <th>Book Title</th>
+                <th>Author</th>
+                <th>Member</th>
+                <th>Due Date</th>
+                <th>Days Overdue</th>
+            </tr>
+        </thead>
+        <tbody>
+            ${books.map(book => `
+                <tr>
+                    <td>${book.title}</td>
+                    <td>${book.author}</td>
+                    <td>${book.memberName}</td>
+                    <td>${book.dueDate}</td>
+                    <td>${calculateDaysOverdue(book.dueDate)}</td>
+                </tr>
+            `).join('')}
+        </tbody>
+    `;
+    preview.appendChild(table);
+}
+
+function displayMostBorrowedBooks(data) {
+    const preview = document.getElementById("report-preview");
+    if (data.length === 0) {
+        preview.innerHTML += '<p class="muted">No borrowing data available.</p>';
+        return;
+    }
+
+    const table = document.createElement('table');
+    table.className = 'report-table';
+    table.innerHTML = `
+        <thead>
+            <tr>
+                <th>Book Title</th>
+                <th>Author</th>
+                <th>Borrow Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            ${data.map(item => `
+                <tr>
+                    <td>${item.title}</td>
+                    <td>${item.author}</td>
+                    <td>${item.borrowCount}</td>
+                </tr>
+            `).join('')}
+        </tbody>
+    `;
+    preview.appendChild(table);
+}
+
+function displayMemberActivity(data) {
+    const preview = document.getElementById("report-preview");
+    if (data.length === 0) {
+        preview.innerHTML += '<p class="muted">No member activity data available.</p>';
+        return;
+    }
+
+    const table = document.createElement('table');
+    table.className = 'report-table';
+    table.innerHTML = `
+        <thead>
+            <tr>
+                <th>Member Name</th>
+                <th>Email</th>
+                <th>Activity Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            ${data.map(item => `
+                <tr>
+                    <td>${item.memberName}</td>
+                    <td>${item.memberEmail}</td>
+                    <td>${item.activityCount}</td>
+                </tr>
+            `).join('')}
+        </tbody>
+    `;
+    preview.appendChild(table);
+}
+
+function calculateDaysOverdue(dueDateStr) {
+    const dueDate = new Date(dueDateStr);
+    const today = new Date();
+    const diffTime = today - dueDate;
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays > 0 ? diffDays : 0;
+}
+
 loadBooks();
+
+// Event listeners for report buttons
+document.querySelectorAll('.report-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const reportType = btn.getAttribute('data-report');
+        loadReport(reportType);
+    });
+});
+
+// Date range filtering
+document.getElementById('report-filters').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const startDate = document.getElementById('startDate').value;
+    const endDate = document.getElementById('endDate').value;
+    if (currentReport) {
+        loadReport(currentReport, startDate || null, endDate || null);
+    }
+});

@@ -7,6 +7,9 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.Id;
+import jakarta.persistence.Column;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "waiting_list")
@@ -24,12 +27,22 @@ public class WaitingListEntry {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    @Column(name = "request_date")
+    private LocalDateTime requestDate;
+
     public WaitingListEntry() {}
 
     public WaitingListEntry(Integer id, Book book, Member member) {
         this.id = id;
         this.book = book;
         this.member = member;
+    }
+
+    public WaitingListEntry(Integer id, Book book, Member member, LocalDateTime requestDate) {
+        this.id = id;
+        this.book = book;
+        this.member = member;
+        this.requestDate = requestDate;
     }
     
     public void setId(Integer id) {
@@ -42,6 +55,10 @@ public class WaitingListEntry {
 
     public void setMember(Member member) {
         this.member = member;
+    }
+
+    public void setRequestDate(LocalDateTime requestDate) {
+        this.requestDate = requestDate;
     }
 
     public void setWaitingListID(Integer id) {
@@ -58,6 +75,10 @@ public class WaitingListEntry {
 
     public Member getMember() {
         return member;
+    }
+
+    public LocalDateTime getRequestDate() {
+        return requestDate;
     }
 
     public Integer getWaitingListID() {

@@ -8,6 +8,7 @@ document.getElementById("addBookForm").addEventListener("submit", async (e) => {
         genre: form.genre.value,
         coverUrl: form.coverUrl.value,
         publicationYear: Number(form.publicationYear.value),
+        quantity: Number(form.quantity.value),
         availabilityStatus: form.availabilityStatus.value === "true"
     };
 

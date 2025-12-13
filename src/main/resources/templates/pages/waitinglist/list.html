@@ -12,69 +12,35 @@
       <div th:replace="~{fragments/sidebar :: sidebar}"></div>
 
       <main>
-        <div class="header">Books Waiting List</div>
+        <div class="header">Waiting List Entries</div>
+
+        <div class="add-form">
+          <label for="bookSelect">Book:</label>
+          <select id="bookSelect" title="Select a book" required>
+            <option value="">Select Book</option>
+          </select>
+          <label for="memberSelect">Member:</label>
+          <select id="memberSelect" title="Select a member" required>
+            <option value="">Select Member</option>
+          </select>
+          <button id="addBtn" class="submit-btn">Add to Waiting List</button>
+        </div>
 
         <div class="table-container">
-          <table class="book-table">
+          <table>
             <thead>
               <tr>
-                <th>Book Code</th>
+                <th>Entry ID</th>
                 <th>Book Title</th>
-                <th>Members Waiting</th>
-                <th>Availability</th>
-                <th>Waiting Queue</th>
+                <th>Book Code</th>
+                <th>Member Name</th>
+                <th>Member ID</th>
+                <th>Request Date</th>
                 <th>Actions</th>
               </tr>
             </thead>
-
-            <tbody>
-              <tr>
-                <td>B1</td>
-                <td>Book 1</td>
-                <td>0 Members</td>
-                <td class="available">Available</td>
-                <td>0</td>
-                <td>
-                  <button class="add-btn">Add</button>
-                  <button class="remove-btn">Remove</button>
-                </td>
-              </tr>
-
-              <tr>
-                <td>B2</td>
-                <td>Book 2</td>
-                <td>5 Members</td>
-                <td class="unavailable">Unavailable</td>
-                <td>5</td>
-                <td>
-                  <button class="add-btn">Add</button>
-                  <button class="remove-btn">Remove</button>
-                </td>
-              </tr>
-
-              <tr>
-                <td>B3</td>
-                <td>Book 3</td>
-                <td>3 Members</td>
-                <td class="unavailable">Unavailable</td>
-                <td>3</td>
-                <td>
-                  <button class="add-btn">Add</button>
-                  <button class="remove-btn">Remove</button>
-                </td>
-              </tr>
-
-              <tr>
-                <td>B4</td>
-                <td>Book 4</td>
-                <td>0 Members</td>
-                <td class="available">Available</td>
-                <td>0</td>
-                <td>
-                  <button class="add-btn">Add</button>
-                  <button class="remove-btn">Remove</button>
-                </td>
-              </tr>
+            <tbody id="waitingListTable">
+              <!-- Data will be loaded dynamically -->
             </tbody>
           </table>
         </div>
@@ -88,4 +54,4 @@
     Library Management System Project - AIU
 </footer>
 
-</html>
+  </html>

@@ -1,7 +1,7 @@
 async function loadBooks(query = null) {
-    let url = "http://localhost:8080/api/books";
+    let url = "/api/books";
     if (query) {
-        url = `http://localhost:8080/api/books/search?query=${encodeURIComponent(query)}`;
+        url = `/api/books/search?query=${encodeURIComponent(query)}`;
     }
     const response = await fetch(url);
     const books = await response.json();

@@ -73,6 +73,7 @@ public class BookService {
             existing.setCoverUrl(updated.getCoverUrl() != null ? updated.getCoverUrl().trim() : null);
             existing.setPublicationYear(updated.getPublicationYear());
             existing.setAvailabilityStatus(updated.getAvailabilityStatus());
+            existing.setQuantity(updated.getQuantity());
 
             Book saved = bookRepository.update(existing);
             logger.info("Successfully updated book with ID: {}", id);

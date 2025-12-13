@@ -1,11 +1,13 @@
 package com.aiu.library.repository;
 
-import java.util.concurrent.atomic.AtomicInteger;
-import org.springframework.stereotype.Repository;
-import com.aiu.library.datastructures.MemberBST;
-import com.aiu.library.model.Member;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import org.springframework.stereotype.Repository;
+
+import com.aiu.library.datastructures.MemberBST;
+import com.aiu.library.model.Member;
 
 @Repository
 public class MemberRepository {
@@ -50,9 +52,7 @@ public class MemberRepository {
     }
 
     public void insert(Member member) {
-        if (member.getMemberId() == null) {
-            member.setMemberId(generateNextId());
-        }
+        // Let JPA auto-generate the ID
         Member saved = memberJpaRepository.save(member);
         memberList.addMember(saved);
     }
@@ -69,10 +69,6 @@ public class MemberRepository {
 
     public synchronized Integer generateNextId() {
         return Integer.valueOf(nextId.getAndIncrement());
-    }
-
-    public Member findById(int id) {
-        return memberList.searchByID(id);
     }
 
     public Member findById(Integer id) {

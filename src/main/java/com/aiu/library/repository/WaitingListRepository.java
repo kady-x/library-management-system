@@ -1,6 +1,7 @@
 package com.aiu.library.repository;
 
 import java.util.List;
+import java.time.LocalDateTime;
 
 import org.springframework.stereotype.Repository;
 
@@ -69,6 +70,7 @@ public class WaitingListRepository {
 		WaitingListEntry entry = new WaitingListEntry();
 		entry.setBook(book);
 		entry.setMember(member);
+        entry.setRequestDate(LocalDateTime.now());
 		WaitingListEntry saved = jpaRepository.save(entry);
 		queue.enqueue(saved);
 		return saved;

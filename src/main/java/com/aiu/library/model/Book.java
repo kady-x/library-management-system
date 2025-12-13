@@ -1,11 +1,11 @@
 package com.aiu.library.model;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "books")
@@ -32,11 +32,14 @@ public class Book {
 
     @Column(name = "availability_status")
     private Boolean availabilityStatus;
+
+    @Column(name = "quantity")
+    private Integer quantity = 1;
     
     public Book() {}
 
     public Book(Integer bookID, String title, String author, String genre,
-                String coverUrl, Integer publicationYear, Boolean availabilityStatus) {
+                String coverUrl, Integer publicationYear, Boolean availabilityStatus, Integer quantity) {
         this.bookID = bookID;
         this.title = title;
         this.author = author;
@@ -44,6 +47,7 @@ public class Book {
         this.coverUrl = coverUrl;
         this.publicationYear = publicationYear;
         this.availabilityStatus = availabilityStatus;
+        this.quantity = quantity != null ? quantity : 1;
     }
 
     public Integer getBookID() {
@@ -96,5 +100,13 @@ public class Book {
 
     public void setAvailabilityStatus(Boolean availabilityStatus) {
         this.availabilityStatus = availabilityStatus;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 }

@@ -18,6 +18,52 @@
             <div id="book-grid"></div>
 
             <div id="title"></div>
+
+            <!-- Reports Section -->
+            <section class="reports-section">
+                <h2>Library Reports</h2>
+
+                <section aria-labelledby="reports-actions" class="reports-actions">
+                    <h3 id="reports-actions" class="visually-hidden">Report Actions</h3>
+
+                    <div class="card actions-grid">
+                        <a href="#" class="report-btn" data-report="overdue">
+                            <span class="btn-icon">📚</span>
+                            <span class="btn-text">Overdue Books</span>
+                            <small class="btn-sub">View all overdue loans</small>
+                        </a>
+
+                        <a href="#" class="report-btn" data-report="most-borrowed">
+                            <span class="btn-icon">🔥</span>
+                            <span class="btn-text">Most Borrowed</span>
+                            <small class="btn-sub">Top borrowed titles</small>
+                        </a>
+
+                        <a href="#" class="report-btn" data-report="member-activity">
+                            <span class="btn-icon">👥</span>
+                            <span class="btn-text">Member Activity</span>
+                            <small class="btn-sub">Recent member transactions</small>
+                        </a>
+                    </div>
+                </section>
+
+                <section class="filters">
+                    <form id="report-filters" class="filters-form" action="#" method="GET" aria-label="Filter reports">
+                        <label for="startDate">Start date</label>
+                        <input type="date" id="startDate" name="startDate">
+
+                        <label for="endDate">End date</label>
+                        <input type="date" id="endDate" name="endDate">
+
+                        <button type="submit" class="btn small">Apply</button>
+                    </form>
+                </section>
+
+                <section id="report-preview" class="report-preview" aria-live="polite">
+                    <h3 class="preview-title">Report preview</h3>
+                    <p class="muted">Select a report to see a quick preview here.</p>
+                </section>
+            </section>
         </main>
     </section>
 

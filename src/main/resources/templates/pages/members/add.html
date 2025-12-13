@@ -1,35 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Add New Member</title>
-  <link rel="stylesheet" th:href="@{/css/style.css}" />
-</head>
-<body class="add-member-page">
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+  </head>
 
-<div class="container">
-    <h1>Add New Member</h1>
+  <body class="add-member-page">
+    <section class="body-section">
+      <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+      <main>
+        <div class="container">
+          <div class="form-header">
+            <h1>Add New Member</h1>
+            <p class="form-description">Create a new library member account</p>
+          </div>
 
-    <a href="list.html" class="back-link">← Back to Members List</a>
+          <nav class="form-navigation">
+            <a href="/members" class="back-link">
+              <span class="nav-icon">←</span>
+              Back to Members List
+            </a>
+          </nav>
 
-    <form class="member-form" action="list.html" method="get">
+          <form id="addMemberForm" class="member-form">
+            <div class="form-section">
+              <h2 class="section-title">Member Information</h2>
 
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" placeholder="Enter member's name" required>
+              <div class="form-group">
+                <label for="name" class="form-label">
+                  Full Name <span class="required">*</span>
+                </label>
+                <div class="input-wrapper">
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Enter member's full name"
+                    maxlength="100"
+                    required
+                  />
+                </div>
+              </div>
 
-        <label for="contact">Contact:</label>
-        <input type="text" id="contact" name="contact" placeholder="Enter contact info" required>
+              <div class="form-group">
+                <label for="contact" class="form-label">
+                  Contact Information <span class="required">*</span>
+                </label>
+                <div class="input-wrapper">
+                  <input
+                    type="text"
+                    id="contact"
+                    name="contact"
+                    placeholder="Email or phone number"
+                    maxlength="255"
+                    required
+                  />
+                </div>
+              </div>
 
-        <label for="membershipDate">Membership Date:</label>
-        <input type="date" id="membershipDate" name="membershipDate" required>
+              <div class="form-group">
+                <label for="membershipDate" class="form-label">
+                  Membership Date <span class="required">*</span>
+                </label>
+                <div class="input-wrapper">
+                  <input
+                    type="date"
+                    id="membershipDate"
+                    name="membershipDate"
+                    required
+                  />
+                </div>
+              </div>
+            </div>
 
-        <div class="button-group">
-            <button type="submit" class="add-btn-member">Add Member</button>
-            <button type="reset" class="reset-btn-member">Reset</button>
+            <div class="form-actions">
+              <div class="button-group">
+                <button type="submit" class="add-btn-member primary-action">
+                  <span class="btn-icon">+</span>
+                  Add Member
+                </button>
+                <button type="reset" class="reset-btn-member secondary-action">
+                  <span class="btn-icon">↻</span>
+                  Reset Form
+                </button>
+              </div>
+
+              <div class="form-footer">
+                <p class="form-note">
+                  <span class="required">*</span> Required fields
+                </p>
+              </div>
+            </div>
+          </form>
         </div>
+      </main>
+    </section>
 
-    </form>
-</div>
-
-</body>
+    <script src="/js/sidebar.js"></script>
+    <script src="/js/members/members-add.js"></script>
+  </body>
 </html>

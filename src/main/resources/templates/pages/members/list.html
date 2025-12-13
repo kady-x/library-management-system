@@ -1,42 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Members List</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Members List</title>
     <link rel="stylesheet" th:href="@{/css/style.css}" />
-</head>
+  </head>
 
-<body class="body-member">
+  <body>
+    <section class="body-section">
+      <div th:replace="~{fragments/sidebar :: sidebar}"></div>
 
-<h1 class="h1-member">Members List</h1>
+      <main>
+        <div class="page-header">
+          <h1 class="h1-member">Members Management</h1>
+          <div class="header-actions">
+            <div class="stats-cards">
+              <div class="stat-card">
+                <div class="stat-number" id="totalMembers">0</div>
+                <div class="stat-label">Total Members</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-number" id="activeMembers">0</div>
+                <div class="stat-label">Active Members</div>
+              </div>
+            </div>
+            <a href="./members/add" class="add-btn-member">
+              <span class="btn-icon">+</span>
+              Add New Member
+            </a>
+          </div>
+        </div>
 
-<a href="add.html" class="add-btn-member">+ Add New Member</a>
+        <div class="filters-section">
+          <div class="search-container">
+            <input
+              type="search"
+              id="memberSearch"
+              placeholder="Search members by name..."
+              class="search-input"
+            />
+            <button id="clearSearch" class="clear-btn" style="display: none;">×</button>
+          </div>
+          <div class="filter-actions">
+            <button id="refreshBtn" class="refresh-btn">
+              <span class="refresh-icon">↻</span>
+              Refresh
+            </button>
+          </div>
+        </div>
 
-<table class="members-table-member">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Contact</th>
-            <th>Membership Date</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
+        <div class="table-container">
+          <table id="memberTable" class="members-table-member">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Contact Info</th>
+                <th>Membership Date</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Data will be loaded dynamically -->
+            </tbody>
+          </table>
 
-    <tbody>
-        <tr>
-            <td>1</td>
-            <td>m1</td>
-            <td>012</td>
-            <td>2021-01-01</td>
-            <td><a href="details.html" class="action-link-member">View Details</a></td>
-        </tr>
-    </tbody>
-</table>
+          <div class="empty-state" id="emptyState" style="display: none;">
+            <div class="empty-icon">👥</div>
+            <h3>No Members Found</h3>
+            <p>Start by adding your first member to the library system.</p>
+            <a href="./members/add" class="add-btn-member">Add First Member</a>
+          </div>
+        </div>
+      </main>
+    </section>
 
-<div class="controls">
-  <input type="search" id="memberSearch" placeholder="search with name">
-</div>
-
-</body>
+    <script src="/js/members/members-list.js"></script>
+    <script src="/js/members/member-delete.js"></script>
+    <script src="/js/sidebar.js"></script>
+  </body>
+  <footer>Library Management System Project - AIU</footer>
 </html>

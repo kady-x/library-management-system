@@ -59,7 +59,6 @@ public class BillingService {
 
         try {
             Billing billing = getOrCreateBilling(memberID);
-            double previousTotal = billing.getTotalFines();
             billing.addPayment(amount);
 
             Billing saved = billingRepository.save(billing);
