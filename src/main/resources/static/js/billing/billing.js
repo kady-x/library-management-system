@@ -8,20 +8,36 @@ document.getElementById("memberForm").addEventListener("submit", async (e) => {
 document.getElementById("payForm").addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const memberId = document.getElementById("memberId").value;
-    const amount = parseFloat(e.target.amount.value);
+    try {
+        const memberId = document.getElementById("memberId").value;
+        const amount = parseFloat(e.target.amount.value);
 
-    const response = await fetch(`/api/billing/${memberId}?amount=${amount}`, {
-        method: "POST"
-    });
+        if (!amount || amount <= 0) {
+            alert("Please enter a valid amount greater than 0");
+            return;
+        }
 
-    if (response.ok) {
-        alert("Payment processed successfully");
+        const response = await fetch(`/api/billing/${memberId}/payment`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ amount: amount })
+        });
+
+        if (!response.ok) {
+            const error = await response.text();
+            throw new Error(error || `HTTP error! status: ${response.status}`);
+        }
+
+        const result = await response.json();
+        alert(`Payment of ${amount.toFixed(2)} EGP processed successfully`);
         e.target.reset();
         await loadBillingData(memberId);
-    } else {
-        const error = await response.text();
-        alert("Failed to process payment: " + error);
+
+    } catch (error) {
+        console.error("Error processing payment:", error);
+        alert("Failed to process payment: " + error.message);
     }
 });
 
