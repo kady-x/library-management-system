@@ -43,27 +43,25 @@ public class MemberController {
         return service.getMemberById(id);
     }
 
+    @PostMapping("/billing")
+    public Member addMemberWithBilling(@RequestBody MemberWithBillingRequest request) {
+        return service.registerMemberWithBilling(request);
+    }
+
     @PostMapping
-    public Member addMember(@RequestBody Object request) {
-        if (request instanceof MemberWithBillingRequest) {
-            return service.registerMemberWithBilling((MemberWithBillingRequest) request);
-        } else if (request instanceof Member) {
-            return service.registerMember((Member) request);
-        } else {
-            throw new IllegalArgumentException("Unsupported request type");
-        }
+    public Member addMember(@RequestBody Member request) {
+        return service.registerMember(request);
     }
 
     
+    @PutMapping("/{id}/billing")
+    public Member updateMemberWithBilling(@PathVariable int id, @RequestBody MemberWithBillingRequest request) {
+        return service.updateMemberWithBilling(id, request);
+    }
+
     @PutMapping("/{id}")
-    public Member updateMember(@PathVariable int id, @RequestBody Object request) {
-        if (request instanceof MemberWithBillingRequest) {
-            return service.updateMemberWithBilling(id, (MemberWithBillingRequest) request);
-        } else if (request instanceof Member) {
-            return service.updateMember(id, (Member) request);
-        } else {
-            throw new IllegalArgumentException("Unsupported request type");
-        }
+    public Member updateMember(@PathVariable int id, @RequestBody Member request) {
+        return service.updateMember(id, request);
     }
 
     

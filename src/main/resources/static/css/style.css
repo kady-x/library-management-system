@@ -522,10 +522,9 @@ body.billing form button:hover {
     background-color: #d62828;
 }
 
-/* ===== Report Section ===== */
 body.report {
     font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    background-color: #0b1d51; /* خلفية زرقاء غامقة */
+    background-color: #0b1d51;
     color: #fff;
     line-height: 1.5;
     margin: 0;
@@ -741,8 +740,10 @@ body.report .lead {
     box-shadow: 0 4px 20px rgba(0,0,0,0.4);
 }
 
-.active-borrows-section h
-    overflow: hidden;
+.active-borrows-section h3 {
+    color: white;
+    margin-bottom: 15px;
+    text-align: center;
 }
 
 .active-borrows-section .borrow-table th,
