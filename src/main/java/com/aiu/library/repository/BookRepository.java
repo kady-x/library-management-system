@@ -79,9 +79,6 @@ public class BookRepository {
         logger.info("Updating book with ID: {}", book.getBookID());
 
         try {
-            if (book == null) {
-                throw new IllegalArgumentException("Book cannot be null");
-            }
             if (book.getBookID() == null) {
                 throw new IllegalArgumentException("Book ID cannot be null for update");
             }
